@@ -1,3 +1,36 @@
 {
-  "extends": "next/core-web-vitals"
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "settings": {
+    "import/resolver": {
+      "babel-module": {},
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx", ".d.ts"]
+      }
+    }
+  },
+  "env": {
+    "node": true
+  },
+  "plugins": ["prettier"],
+  "extends": [
+    "next/core-web-vitals",
+    "airbnb-base",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "rules": {
+    "no-alert": "off",
+    "import/no-unresolved": "off",
+    "import/extensions": ["off"],
+    "no-use-before-define": "off",
+    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "@typescript-eslint/no-use-before-define": [
+      "error",
+      { "variables": false }
+    ],
+    "@typescript-eslint/explicit-module-boundary-types": "off"
+  }
 }
