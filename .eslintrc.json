@@ -17,7 +17,7 @@
   "plugins": ["prettier"],
   "extends": [
     "next/core-web-vitals",
-    "airbnb-base",
+    "google",
     "plugin:@typescript-eslint/recommended",
     "prettier"
   ],
@@ -25,12 +25,14 @@
     "no-alert": "off",
     "import/no-unresolved": "off",
     "import/extensions": ["off"],
+    "lines-between-class-members": "off",
     "no-use-before-define": "off",
     "prettier/prettier": ["error", { "endOfLine": "auto" }],
     "@typescript-eslint/no-use-before-define": [
       "error",
       { "variables": false }
     ],
-    "@typescript-eslint/explicit-module-boundary-types": "off"
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "require-jsdoc": "off"
   }
 }
