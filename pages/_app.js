@@ -1,10 +1,12 @@
 import React from "react";
 import Head from "next/head";
-import { AppProps } from "next/app";
 import styled from "styled-components";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+// eslint-disable-next-line no-unused-vars
+import * as tfjs from "@tensorflow/tfjs";
+import "@tensorflow/tfjs-backend-webgl";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }) {
   const theme = extendTheme({
     styles: {
       global: {
