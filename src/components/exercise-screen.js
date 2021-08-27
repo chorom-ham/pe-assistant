@@ -36,6 +36,10 @@ export default function App() {
       webcamRef.current.video.height = videoHeight;
       // Make Estimation
       const pose = await posenetModel.estimateSinglePose(video);
+
+      // Pose Estimation (WIP)
+      console.log(pose);
+
       drawResult(pose, video, videoWidth, videoHeight, canvasRef);
     }
   };
