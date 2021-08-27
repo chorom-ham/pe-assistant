@@ -5,7 +5,7 @@ import * as posenet from "@tensorflow-models/posenet";
 import Webcam from "react-webcam";
 
 import { drawKeypoints, drawSkeleton } from "src/utils/draw";
-import estimateAction from "src/utils/example=pose-estimation";
+import estimateAction from "src/utils/example-pose-estimation";
 
 export default function App() {
   const webcamRef = useRef(null);
