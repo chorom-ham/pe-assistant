@@ -5,6 +5,7 @@ import * as posenet from "@tensorflow-models/posenet";
 import Webcam from "react-webcam";
 
 import { drawKeypoints, drawSkeleton } from "src/utils/draw";
+import estimateAction from "src/utils/example=pose-estimation";
 
 export default function App() {
   const webcamRef = useRef(null);
@@ -38,7 +39,7 @@ export default function App() {
       const pose = await posenetModel.estimateSinglePose(video);
 
       // Pose Estimation (WIP)
-      console.log(pose);
+      estimateAction(pose);
 
       drawResult(pose, video, videoWidth, videoHeight, canvasRef);
     }
