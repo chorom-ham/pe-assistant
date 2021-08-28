@@ -5,10 +5,10 @@ import CourseItem from "./course-item";
 
 export default function CourseList() {
   const TEMP = [
-    { title: "aaa", subtitle: "bbb", image: "temp" },
-    { title: "aaa", subtitle: "bbb", image: "temp" },
-    { title: "aaa", subtitle: "bbb", image: "temp" },
-    { title: "aaa", subtitle: "bbb", image: "temp" },
+    { id: 1, title: "aaa", subtitle: "bbb", image: "temp" },
+    { id: 2, title: "aaa", subtitle: "bbb", image: "temp" },
+    { id: 3, title: "aaa", subtitle: "bbb", image: "temp" },
+    { id: 4, title: "aaa", subtitle: "bbb", image: "temp" },
   ];
 
   return (
@@ -20,7 +20,8 @@ export default function CourseList() {
         <ItemContainer>
           {TEMP.map((item) => (
             <CourseItem
-              key={item.title}
+              key={item.id}
+              id={item.id}
               title={item.title}
               subtitle={item.subtitle}
               image={item.image}
