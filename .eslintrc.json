@@ -20,6 +20,7 @@
     "no-use-before-define": "off",
     "prettier/prettier": ["error", { "endOfLine": "auto" }],
     "require-jsdoc": "off",
-    "valid-jsdoc": "off"
+    "valid-jsdoc": "off",
+    "no-unused-vars": "warn"
   }
 }
