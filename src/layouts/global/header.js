@@ -27,7 +27,7 @@ const StyledHeader = styled.header`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 4rem;
+  padding: 0 6rem;
   background-color: ${COLORS.blue[500]};
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 6px 0px;
 `;

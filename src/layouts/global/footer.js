@@ -26,7 +26,7 @@ const StyledFooter = styled.footer`
   bottom: 0;
   display: flex;
   flex-direction: column;
-  padding: 1.6rem 4rem;
+  padding: 1.6rem 6rem;
   background-color: ${COLORS.gray[100]};
   justify-content: center;
 `;
