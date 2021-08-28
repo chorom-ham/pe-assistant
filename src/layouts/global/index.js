@@ -14,7 +14,7 @@ export default function GlobalLayout({ children }) {
 }
 
 const Container = styled.div`
-  padding-top: 4.8rem;
+  padding: 4.8rem 0 8rem 0;
   display: flex;
   flex-direction: column;
 `;
