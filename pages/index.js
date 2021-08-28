@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import GlobalLayout from "src/layouts/global";
 import ExerciseScreen from "src/components/exercise-screen";
 import { isMobile } from "src/utils/draw";
-import Banner from "../src/components/banner";
+import Banner from "src/components/banner";
+import CourseList from "src/components/course-list";
 
 export default function Home() {
   const [isMobileDevice, setIsMobileDevice] = useState(false);
@@ -18,6 +19,7 @@ export default function Home() {
   return (
     <GlobalLayout>
       <Banner />
+      <CourseList />
     </GlobalLayout>
   );
 }
