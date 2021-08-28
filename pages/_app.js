@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>체육 수업 지원</title>
+        <title>체육 수업 도우미</title>
         <link rel="shortcut icon" href="favicon.ico"></link>
         <meta
           name="viewport"
