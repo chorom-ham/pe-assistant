@@ -5,10 +5,30 @@ import CourseItem from "./course-item";
 
 export default function CourseList() {
   const TEMP = [
-    { id: 1, title: "aaa", subtitle: "bbb", image: "temp" },
-    { id: 2, title: "aaa", subtitle: "bbb", image: "temp" },
-    { id: 3, title: "aaa", subtitle: "bbb", image: "temp" },
-    { id: 4, title: "aaa", subtitle: "bbb", image: "temp" },
+    {
+      id: 1,
+      title: "동작 제목 예시입니다",
+      subtitle: "동작 설명 예시입니다",
+      image: "temp",
+    },
+    {
+      id: 2,
+      title: "동작 제목 예시입니다",
+      subtitle: "동작 설명 예시입니다",
+      image: "temp",
+    },
+    {
+      id: 3,
+      title: "동작 제목 예시입니다",
+      subtitle: "동작 설명 예시입니다",
+      image: "temp",
+    },
+    {
+      id: 4,
+      title: "동작 제목 예시입니다",
+      subtitle: "동작 설명 예시입니다",
+      image: "temp",
+    },
   ];
 
   return (
@@ -35,18 +55,21 @@ export default function CourseList() {
 
 const Wrapper = styled.div`
   width: 100%;
-  padding: 2rem 8rem;
+  padding: 4rem 8rem;
   display: flex;
   justify-content: center;
 `;
 
 const InnerWrapper = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   max-width: 1440px;
+  margin-left: 1rem;
 `;
 
 const ItemContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
 `;

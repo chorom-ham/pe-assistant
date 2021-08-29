@@ -44,5 +44,5 @@ const InnerWrapper = styled.div`
   background-repeat: no-repeat;
   background-size: contain;
   background-position: right;
-  padding-left: 4rem;
+  padding-left: 2rem;
 `;
