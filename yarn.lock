@@ -4252,6 +4252,11 @@ popmotion@9.3.6:
     style-value-types "4.1.4"
     tslib "^2.1.0"
 
+posenet-similarity@^0.4.8:
+  version "0.4.8"
+  resolved "https://registry.yarnpkg.com/posenet-similarity/-/posenet-similarity-0.4.8.tgz#750e60f36a38d38dc8d818fe52e6476dcec96764"
+  integrity sha512-gr82uIrGoOrJadzgAnAWBvlTr0pNLydhLif7GDMYiv+p38/BcNzt/ouvuH0OdZNFa5wmEeEeuMIq7ZFzxtn5Lw==
+
 posix-character-classes@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"
