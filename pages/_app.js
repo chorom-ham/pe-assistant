@@ -10,8 +10,14 @@ function MyApp({ Component, pageProps }) {
   const theme = extendTheme({
     styles: {
       global: {
-        baseStyle: { boxSizing: "border-box" },
-        body: { minWidth: "768px", margin: 0 },
+        baseStyle: {
+          boxSizing: "border-box",
+        },
+        body: {
+          fontFamily: "Noto Sans KR, sans-serif",
+          minWidth: "768px",
+          margin: 0,
+        },
       },
     },
   });
@@ -19,7 +25,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>체육 수업 지원</title>
+        <title>체육 수업 도우미</title>
         <link rel="shortcut icon" href="favicon.ico"></link>
         <meta
           name="viewport"
