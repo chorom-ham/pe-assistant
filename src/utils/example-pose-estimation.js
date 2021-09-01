@@ -8,17 +8,45 @@ let typesOfPart = ['nose',
 ];
 
 export default function estimateAction(pose, movement) {
-  if(movement=='start'){
     //console.log(pose);
-    let points =null;
+    let points = null;
+
     points = pose.keypoints.reduce((acc, { part, position }) => {
-      acc[part] = position
-      return acc
+    acc[part] = position
+    return acc
     }, {})
-    console.log(points['rightShoulder']);
-    
-  }
-  return true
+
+    let angles_arms = {'rightHigh':null, 'rightLow':null, 'leftHigh':null, 'leftLow':null}
+    angles_arms.rightHigh = getAngle(points['rightShoulder'].x, points['rightShoulder'].y, points['rightElbow'].x, points['rightElbow'].y);
+    angles_arms.rightLow = getAngle(points['rightElbow'].x, points['rightElbow'].y, points['rightWrist'].x, points['rightWrist'].y);
+    angles_arms.leftHigh = getAngle(points['leftShoulder'].x, points['leftShoulder'].y, points['leftElbow'].x, points['leftElbow'].y);
+    angles_arms.leftLow = getAngle(points['leftElbow'].x, points['leftElbow'].y, points['leftWrist'].x, points['leftWrist'].y);
+    //console.log(an)
+
+    if(movement=='start'){
+        if(checkStartPose(angles_arms)){
+            return true
+        }
+    }
+    return false
+}
+function getAngle(x1, y1, x2, y2) {
+	var rad = Math.atan2(y2 - y1, x2 - x1);
+	return (rad*180)/Math.PI ;
+}
+
+function checkStartPose(angles_arms){
+    if (110 > angles_arms.rightHigh || angles_arms.rightHigh > 160){
+        return false
+    } else if (20 > angles_arms.rightLow || angles_arms.rightLow > 70){
+        return false
+    }else if(20 > angles_arms.leftHigh || angles_arms.leftHigh > 70){
+        return false
+    }else if (110 > angles_arms.leftLow || angles_arms.leftLow > 160){
+        return false
+    }else{
+        return true
+    }
 }
 
 /*
