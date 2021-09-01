@@ -23,8 +23,17 @@ export default function estimateAction(pose, movement) {
     angles_arms.leftLow = getAngle(points['leftElbow'].x, points['leftElbow'].y, points['leftWrist'].x, points['leftWrist'].y);
     //console.log(an)
 
+    let angles_nose = {'rightElbow':null, 'leftElbow':null}
+    angles_nose.rightElbow = getAngle(points['nose'].x, points['nose'].y, points['rightElbow'].x, points['rightElbow'].y);
+    angles_nose.leftElbow = getAngle(points['nose'].x, points['nose'].y, points['leftElbow'].x, points['leftElbow'].y);
+
+
     if(movement=='start'){
-        if(checkStartPose(angles_arms)){
+        if(checkBasicRight(angles_arms) && checkBasicLeft(angles_arms)){
+            return true
+        }
+    }else if(movement=='stretch-right-side'){
+        if(checkBasicLeft(angles_arms) && checkPassoverRight(angles_nose)){
             return true
         }
     }
@@ -35,18 +44,30 @@ function getAngle(x1, y1, x2, y2) {
 	return (rad*180)/Math.PI ;
 }
 
-function checkStartPose(angles_arms){
+function checkBasicRight(angles_arms){
     if (110 > angles_arms.rightHigh || angles_arms.rightHigh > 160){
         return false
     } else if (20 > angles_arms.rightLow || angles_arms.rightLow > 70){
         return false
-    }else if(20 > angles_arms.leftHigh || angles_arms.leftHigh > 70){
+    }else{
+        return true
+    }
+}
+function checkBasicLeft(angles_arms){
+    if(20 > angles_arms.leftHigh || angles_arms.leftHigh > 70){
         return false
     }else if (110 > angles_arms.leftLow || angles_arms.leftLow > 160){
         return false
     }else{
         return true
     }
+}
+
+function checkPassoverRight(angles_nose){
+    if( -110 > angles_nose.rightElbow || angles_nose.rightElbow > 0){
+        return false
+    }
+    return true
 }
 
 /*

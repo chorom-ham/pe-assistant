@@ -53,8 +53,8 @@ export default function App() {
       inputResolution: { width: videoWidth, height: videoHeight },
       scale: 0.8,
     });
-    let move_to_detect = ['start', 'arm-up', 'arm-down']
-    let step = 0
+    let move_to_detect = ['start', 'stretch-right-side', 'arm-down']
+    let step = 1
 
     console.log('start!');
 
