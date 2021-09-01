@@ -9,7 +9,14 @@ let typesOfPart = ['nose',
 
 export default function estimateAction(pose, movement) {
   if(movement=='start'){
-    console.log(pose);
+    //console.log(pose);
+    let points =null;
+    points = pose.keypoints.reduce((acc, { part, position }) => {
+      acc[part] = position
+      return acc
+    }, {})
+    console.log(points['rightShoulder']);
+    
   }
   return true
 }
@@ -153,4 +160,76 @@ export default function estimateAction(pose, movement) {
         }
     }
 ]
+*/
+/*
+{
+    "nose": {
+        "x": 236.46839350136506,
+        "y": 445.8500763383576
+    },
+    "leftEye": {
+        "x": 298.37043559867396,
+        "y": 391.6638919568607
+    },
+    "rightEye": {
+        "x": 210.35141015015603,
+        "y": 371.6511722810551
+    },
+    "leftEar": {
+        "x": 342.55755777106083,
+        "y": 423.9033974629678
+    },
+    "rightEar": {
+        "x": 171.04920290561623,
+        "y": 383.79792465241684
+    },
+    "leftShoulder": {
+        "x": 414.6123915269111,
+        "y": 502.4310518451144
+    },
+    "rightShoulder": {
+        "x": 179.63503071372855,
+        "y": 485.2505055385915
+    },
+    "leftElbow": {
+        "x": 193.71017575078002,
+        "y": 483.08390722453225
+    },
+    "rightElbow": {
+        "x": 178.42100051189547,
+        "y": 486.4092852618244
+    },
+    "leftWrist": {
+        "x": 201.69752766673167,
+        "y": 490.2000328904626
+    },
+    "rightWrist": {
+        "x": 178.80662843701248,
+        "y": 495.6861011402027
+    },
+    "leftHip": {
+        "x": 531.1272669656787,
+        "y": 462.8074547654626
+    },
+    "rightHip": {
+        "x": 178.6938895524571,
+        "y": 483.3085369022869
+    },
+    "leftKnee": {
+        "x": 179.9079045193058,
+        "y": 482.9794495517152
+    },
+    "rightKnee": {
+        "x": 190.21722040756632,
+        "y": 481.8702187012734
+    },
+    "leftAnkle": {
+        "x": 179.46177847113884,
+        "y": 484.3598744477651
+    },
+    "rightAnkle": {
+        "x": 178.4080812451248,
+        "y": 484.4620785148129
+    }
+}
 */

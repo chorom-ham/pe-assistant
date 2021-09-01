@@ -22,7 +22,7 @@ export default function App() {
     drawSkeleton(pose["keypoints"], 0.7, ctx);
   };
 
-  function detectWebcamFeed(posenetModel, movement) {
+  async function detectWebcamFeed (posenetModel, movement){
     if (
       typeof webcamRef.current !== "undefined" &&
       webcamRef.current !== null &&
@@ -36,10 +36,11 @@ export default function App() {
       webcamRef.current.video.width = videoWidth;
       webcamRef.current.video.height = videoHeight;
       // Make Estimation
-      const pose = posenetModel.estimateSinglePose(video);
+      const pose = await posenetModel.estimateSinglePose(video);
 
       // Pose Estimation (WIP)
       if (estimateAction(pose, movement)){
+        console.log('true-pose');
         return true
       }
       drawResult(pose, video, videoWidth, videoHeight, canvasRef);
@@ -62,6 +63,7 @@ export default function App() {
         console.log('finish!');
         clearInterval(movement_timer);
       }
+
       if ( detectWebcamFeed(posenetModel, move_to_detect[step]) == true){
         console.log('cool! ', move_to_detect[step]);
         step+=1;
