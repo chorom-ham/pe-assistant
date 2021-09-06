@@ -11,7 +11,7 @@ fix #
 ## Checklist
 
 Before you create this PR confirms that it meets all requirements listed below by checking the relevant checkboxes (`[x]`). This will ensure a smooth and quick review process.
+
 - [ ] Did you assigned `Assignee`?
 - [ ] Is there no `Blocking PR`? (If any, link to #n below.)
 - [ ] Are component's all props working properly?
-- [ ] Did you run `yarn tsc`?
