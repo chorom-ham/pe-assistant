@@ -1,13 +1,16 @@
-import { useRef } from "react";
+import { useRef, useCallback } from "react";
 import styled from "styled-components";
-
 import * as posenet from "@tensorflow-models/posenet";
 import Webcam from "react-webcam";
 
 import { drawKeypoints, drawSkeleton } from "src/utils/draw";
-import estimateAction from "src/utils/example-pose-estimation";
+import estimatePose from "src/utils/estimate-pose";
 
-export default function App() {
+export default function ExerciseScreen() {
+  // action: 동작명. 아래 estimatePose 인자를 동작명으로 변경해서 테스트
+  const [count, step, checkPoses] = estimatePose("hajung");
+  const checkPose = useCallback((pose) => checkPoses(pose), [checkPoses]);
+
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
 
@@ -22,7 +25,7 @@ export default function App() {
     drawSkeleton(pose["keypoints"], 0.7, ctx);
   };
 
-  const detectWebcamFeed = async (posenetModel) => {
+  async function detectWebcamFeed(posenetModel) {
     if (
       typeof webcamRef.current !== "undefined" &&
       webcamRef.current !== null &&
@@ -37,20 +40,19 @@ export default function App() {
       webcamRef.current.video.height = videoHeight;
       // Make Estimation
       const pose = await posenetModel.estimateSinglePose(video);
-
-      // Pose Estimation (WIP)
-      estimateAction(pose);
-
+      // Pose Estimation
+      checkPose(pose);
+      // Draw Result
       drawResult(pose, video, videoWidth, videoHeight, canvasRef);
     }
-  };
+  }
 
   const runPosenet = async () => {
     const posenetModel = await posenet.load({
       inputResolution: { width: videoWidth, height: videoHeight },
       scale: 0.8,
     });
-    //
+
     setInterval(() => {
       detectWebcamFeed(posenetModel);
     }, 100);
@@ -59,25 +61,30 @@ export default function App() {
   runPosenet();
 
   return (
-    <Wrapper>
-      <Webcam
-        ref={webcamRef}
-        style={{
-          width: videoWidth,
-          height: videoHeight,
-          position: "absolute",
-          top: 0,
-          left: 0,
-        }}
-      />
-      <StyledCanvas
-        ref={canvasRef}
-        style={{
-          width: videoWidth,
-          height: videoHeight,
-        }}
-      />
-    </Wrapper>
+    <>
+      <Wrapper>
+        <Webcam
+          ref={webcamRef}
+          style={{
+            width: videoWidth,
+            height: videoHeight,
+            position: "absolute",
+            top: 0,
+            left: 0,
+          }}
+        />
+        <StyledCanvas
+          ref={canvasRef}
+          style={{
+            width: videoWidth,
+            height: videoHeight,
+          }}
+        />
+      </Wrapper>
+      <p>
+        step:{step} / count: {count}
+      </p>
+    </>
   );
 }
 
