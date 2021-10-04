@@ -1,5 +1,6 @@
 import hajung from "./detect-pose/hajung";
 import shoulderStretching from "./detect-pose/shoulderStretching";
+import waistStretching from "./detect-pose/waistStretching";
 
 export function getKeypointsObject(pose) {
   return pose.keypoints.reduce((acc, { part, position }) => {
@@ -19,6 +20,8 @@ export default function EstimatePose(action) {
       return hajung();
     case "ShoulderStretching":
       return shoulderStretching();
+    case "WaistStretching":
+      return waistStretching();
   }
   // return [count, step, checkPoses];
 }
