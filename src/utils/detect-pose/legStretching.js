@@ -3,7 +3,7 @@ import { useState, useCallback } from "react";
 import { getKeypointsObject, getAngle } from "../estimate-pose";
 
 // 추후 함수명은 동작 이름으로 변경. 대문자로 시작.
-export default function WaistStretching() {
+export default function LegStretching() {
   const [count, setCount] = useState(0);
   const [step, setStep] = useState(0);
   const checkPoses = useCallback((pose) => {
