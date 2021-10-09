@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 import { getKeypointsObject, getAngle } from "../estimate-pose";
 
@@ -6,7 +6,11 @@ import { getKeypointsObject, getAngle } from "../estimate-pose";
 // 어깨 스트레칭
 export default function ShoulderStretching() {
   const [count, setCount] = useState(0);
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
+
+  const [leftStretching, setLeftStretching] = useState(false);
+  const [rightStretching, setRightStretching] = useState(false);
+
   const checkPoses = useCallback((pose) => {
     const {
       leftShoulder,
@@ -15,7 +19,6 @@ export default function ShoulderStretching() {
       rightElbow,
       leftWrist,
       rightWrist,
-      nose,
     } = getKeypointsObject(pose);
 
     const anglesArms = {
@@ -40,31 +43,29 @@ export default function ShoulderStretching() {
       leftLow: getAngle(leftElbow.x, leftElbow.y, leftWrist.x, leftWrist.y),
     };
 
-    const anglesNose = {
-      rightElbow: getAngle(nose.x, nose.y, rightElbow.x, rightElbow.y),
-      leftElbow: getAngle(nose.x, nose.y, leftElbow.x, leftElbow.y),
-    };
-
-    const stretchLeftShoulder = checkLeftShoulderStretching(anglesArms);
-    const stretchRightShoulder = checkRightShoulderStretching(anglesArms);
-
-    if (step == 0 && stretchLeftShoulder) {
-      console.log(true);
-      setCount(count + 1);
-      if (count >= 10) {
-        setStep(step + 1);
-        setCount(0);
-      }
-    }
-    // console.log(stretchRightShoulder);
-    if (step == 1 && stretchRightShoulder) {
-      setCount(count + 1);
-      if (count >= 10) {
-        setStep(step + 1);
-        console.log("finish!");
-      }
-    }
+    setLeftStretching(checkLeftShoulderStretching(anglesArms));
+    setRightStretching(checkRightShoulderStretching(anglesArms));
   });
+
+  useEffect(() => {
+    if ((step == 0 && leftStretching) || (step == 1 && rightStretching)) {
+      if (step == 0) console.log("left shoulder stretching", count);
+      else if (step == 1) console.log("right shoulder stretching", count);
+      setCount((count) => count + 1);
+    }
+  }, [step, count, leftStretching, rightStretching]);
+
+  useEffect(() => {
+    if (step == 0 && count > 20) {
+      setStep((step) => 1);
+      setCount((count) => 0);
+    }
+    if (step == 1 && count > 20) {
+      setStep((step) => 2);
+      setCount((count) => 0);
+    }
+  }, [step, count]);
+
   return [count, step, checkPoses];
 }
 
