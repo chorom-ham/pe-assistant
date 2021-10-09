@@ -3,6 +3,7 @@ import { useState, useCallback } from "react";
 import { getKeypointsObject, getAngle } from "../estimate-pose";
 
 // 추후 함수명은 동작 이름으로 변경. 대문자로 시작.
+// 허리 스트레칭
 export default function WaistStretching() {
   const [count, setCount] = useState(0);
   const [step, setStep] = useState(1);
@@ -68,6 +69,8 @@ export default function WaistStretching() {
   return [count, step, checkPoses];
 }
 
+// 오른쪽 허리 스트레칭
+// 왼쪽 손은 허리에 얹기, 오른쪽 팔은 펴서 머리 위로 넘기기
 function checkRightWaistStretching(anglesArms, anglesNose) {
   if (0 > anglesArms.leftHigh || anglesArms.leftHigh > 90) return false;
   else if (90 > anglesArms.leftLow || anglesArms.leftLow > 180) return false;
@@ -76,6 +79,8 @@ function checkRightWaistStretching(anglesArms, anglesNose) {
   else return true;
 }
 
+// 왼쪽 허리 스트레칭
+// 위와 반대
 function checkLeftWaistStretching(anglesArms, anglesNose) {
   if (90 > anglesArms.rightHigh || anglesArms.rightHigh > 180) return false;
   else if (0 > anglesArms.rightLow || anglesArms.rightLow > 90) return false;

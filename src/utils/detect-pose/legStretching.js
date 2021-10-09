@@ -3,6 +3,7 @@ import { useState, useCallback } from "react";
 import { getKeypointsObject, getAngle } from "../estimate-pose";
 
 // 추후 함수명은 동작 이름으로 변경. 대문자로 시작.
+// 다리 스트레칭
 export default function LegStretching() {
   const [count, setCount] = useState(0);
   const [step, setStep] = useState(0);
@@ -50,6 +51,8 @@ export default function LegStretching() {
   return [count, step, checkPoses];
 }
 
+// 오른쪽 종아리 스트레칭
+// 왼다리 직각으로 굽혀서 앞으로, 오른쪽 다리는 쭉 펴서 뒤로, 왼쪽 보며 실행
 function checkRightLegStretching(anglesLegs) {
   if (anglesLegs.rightLow < 110) return false;
   else if (20 > anglesLegs.leftHigh || anglesLegs.leftHigh > 70) return false;
@@ -57,6 +60,8 @@ function checkRightLegStretching(anglesLegs) {
   else return true;
 }
 
+// 왼쪽 종아리 스트레칭
+// 앞과 반대
 function checkLeftLegStretching(anglesLegs) {
   console.log(anglesLegs.leftLow);
   if (anglesLegs.leftLow > 70) return false;
