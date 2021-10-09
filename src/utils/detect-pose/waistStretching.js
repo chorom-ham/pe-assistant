@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 import { getKeypointsObject, getAngle } from "../estimate-pose";
 
@@ -6,7 +6,11 @@ import { getKeypointsObject, getAngle } from "../estimate-pose";
 // 허리 스트레칭
 export default function WaistStretching() {
   const [count, setCount] = useState(0);
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
+
+  const [leftStretching, setLeftStretching] = useState(false);
+  const [rightStretching, setRightStretching] = useState(false);
+
   const checkPoses = useCallback((pose) => {
     const {
       leftShoulder,
@@ -45,27 +49,29 @@ export default function WaistStretching() {
       leftElbow: getAngle(nose.x, nose.y, leftElbow.x, leftElbow.y),
     };
 
-    const stretchRightWaist = checkRightWaistStretching(anglesArms, anglesNose);
-    const stretchLeftSWaist = checkLeftWaistStretching(anglesArms, anglesNose);
-
-    console.log(stretchLeftSWaist);
-
-    if (step == 0 && stretchRightWaist) {
-      setCount(count + 1);
-      if (count >= 10) {
-        setStep(step + 1);
-        setCount(0);
-      }
-    }
-
-    if (step == 1 && stretchLeftSWaist) {
-      setCount(count + 1);
-      if (count >= 10) {
-        setStep(step + 1);
-        console.log("finish!");
-      }
-    }
+    setLeftStretching(checkLeftWaistStretching(anglesArms, anglesNose));
+    setRightStretching(checkRightWaistStretching(anglesArms, anglesNose));
   });
+
+  useEffect(() => {
+    if ((step == 0 && leftStretching) || (step == 1 && rightStretching)) {
+      if (step == 0) console.log("left waist stretching", count);
+      else if (step == 1) console.log("right waist stretching", count);
+      setCount((count) => count + 1);
+    }
+  }, [step, count, leftStretching, rightStretching]);
+
+  useEffect(() => {
+    if (step == 0 && count > 20) {
+      setStep((step) => 1);
+      setCount((count) => 0);
+    }
+    if (step == 1 && count > 20) {
+      setStep((step) => 2);
+      setCount((count) => 0);
+    }
+  }, [step, count]);
+
   return [count, step, checkPoses];
 }
 
