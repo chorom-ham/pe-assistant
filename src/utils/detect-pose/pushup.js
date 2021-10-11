@@ -5,6 +5,9 @@ import { getKeypointsObject, getAngle } from "../estimate-pose";
 export default function Pushup() {
   const [count, setCount] = useState(0);
   const [step, setStep] = useState(0);
+
+  const [pushup, setPushup] = useState(false);
+
   const checkPoses = useCallback((pose) => {
     const {
       leftShoulder,
@@ -36,59 +39,30 @@ export default function Pushup() {
       ),
       leftLow: getAngle(leftElbow.x, leftElbow.y, leftWrist.x, leftWrist.y),
     };
-
-    const start = checkUpRight(anglesArms) && checkUpLeft(anglesArms);
-
-    if (start) {
-      console.log("start");
-      setStep(1);
-    }
-
-    const down = checkDownLeft(anglesArms) && checkDownRight(anglesArms);
-
-    if (step === 1 && down) {
-      console.log("down");
-      setCount(count + 1);
-      setStep(0);
-    }
+    setPushup(checkPushup(anglesArms));
   });
+
+  useEffect(() => {
+    if (step == 0 && pushup) {
+      console.log("push-up", count);
+      setCount((count) => count + 1);
+    }
+  }, [step, count, pushup]);
+
+  useEffect(() => {
+    if (step == 0 && count > 20) {
+      setStep((step) => 1);
+      setCount((count) => 0);
+    }
+  }, [step, count]);
+
   return [count, step, checkPoses];
 }
 
-function checkUpLeft(anglesArms) {
-  if (30 > anglesArms.leftHigh || anglesArms.leftHigh > 120) {
+function checkPushup(anglesArms) {
+  if (anglesArms.leftHigh > 20 || 160 > anglesArms.rightHigh) {
     return false;
-  } else if (-30 < anglesArms.leftLow || anglesArms.leftLow < -120) {
-    return false;
-  } else {
-    return true;
-  }
-}
-
-function checkUpRight(anglesArms) {
-  if (60 > anglesArms.rightHigh || anglesArms.rightHigh > 120) {
-    return false;
-  } else if (-30 < anglesArms.rightLow || anglesArms.rightLow < -120) {
-    return false;
-  } else {
-    return true;
-  }
-}
-
-function checkDownLeft(anglesArms) {
-  if (anglesArms.leftHigh > 20) {
-    return false;
-  } else if (-10 < anglesArms.leftLow) {
-    return false;
-  } else {
-    return true;
-  }
-}
-
-function checkDownRight(anglesArms) {
-  if (160 > anglesArms.rightHigh) {
-    return false;
-  } else if (-30 < anglesArms.rightLow) {
+  } else if (-10 < anglesArms.leftLow || -30 < anglesArms.rightLow) {
     return false;
   } else {
     return true;
