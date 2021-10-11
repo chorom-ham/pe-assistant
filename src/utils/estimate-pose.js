@@ -12,7 +12,7 @@ export function getKeypointsObject(pose) {
 
 export function getAngle(x1, y1, x2, y2) {
   const rad = Math.atan2(y2 - y1, x2 - x1);
-  return (rad * 180) / Math.PI;
+  return 1 * ((rad * 180) / Math.PI);
 }
 
 export default function EstimatePose(action) {
@@ -21,9 +21,9 @@ export default function EstimatePose(action) {
       return hajung();
     case "pushup":
       return pushup();
-    case "upperdumbell":
+    case "dumbellupper":
       return dumbellupper();
-    case "upperband":
+    case "bandupper":
       return bandupper();
   }
   // return [count, step, checkPoses];
