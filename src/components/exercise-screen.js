@@ -8,7 +8,7 @@ import estimatePose from "src/utils/estimate-pose";
 
 export default function ExerciseScreen() {
   // action: 동작명. 아래 estimatePose 인자를 동작명으로 변경해서 테스트
-  const [count, step, checkPoses] = estimatePose("hajung");
+  const [count, step, checkPoses] = estimatePose("bandupper");
   const checkPose = useCallback((pose) => checkPoses(pose), [checkPoses]);
 
   const webcamRef = useRef(null);
