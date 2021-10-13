@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { isMobile } from "src/utils/draw";
 import GlobalLayout from "src/layouts/global";
-import ExerciseScreen from "src/components/exercise-screen-video";
+import ExerciseScreen from "src/components/exercise-screen";
 
 export default function Course() {
   const [isMobileDevice, setIsMobileDevice] = useState(false);

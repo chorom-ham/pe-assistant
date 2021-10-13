@@ -29,5 +29,4 @@ export default function EstimatePose(action) {
     case "LegStretching2":
       return legStretching2();
   }
-  // return [count, step, checkPoses];
 }
