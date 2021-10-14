@@ -43,11 +43,8 @@ export default function ShoulderStretching() {
     const left = checkLeftShoulderStretching(anglesArms);
     const right = checkRightShoulderStretching(anglesArms);
 
-    if (step == 0 && left) {
-      setCount((count) => count + 1);
-    } else if (step == 1 && right) {
-      setCount((count) => count + 1);
-    }
+    if (step == 0 && left) setCount((count) => count + 1);
+    else if (step == 1 && right) setCount((count) => count + 1);
   });
 
   useEffect(() => {

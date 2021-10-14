@@ -8,8 +8,6 @@ export default function LegStretching2() {
   const [count, setCount] = useState(0);
   const [step, setStep] = useState(0);
 
-  const [legStretching, setLegStretching] = useState(false);
-
   const checkPoses = useCallback((pose) => {
     if (pose.keypoints[11].score < 0.1 || pose.keypoints[13].score < 0.1) {
       console.log("can not see");
@@ -26,16 +24,10 @@ export default function LegStretching2() {
         leg: getAngle(rightHip.x, rightHip.y, rightKnee.x, rightKnee.y),
       };
 
-      setLegStretching(checkLegStretching(angles));
+      const legStretching = checkLegStretching(angles);
+      if (step == 0 && legStretching) setCount((count) => count + 1);
     }
   });
-
-  useEffect(() => {
-    if (step == 0 && legStretching) {
-      console.log("leg stretching", count);
-      setCount((count) => count + 1);
-    }
-  }, [step, count, legStretching]);
 
   useEffect(() => {
     if (step == 0 && count > 20) {
