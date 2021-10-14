@@ -112,7 +112,16 @@ export default function ExerciseScreen() {
             objectFit="contain"
             border="1px solid #e6e6e6"
             fallbackSrc="/assets/image-placeholder.png"
+            opacity={0.3}
           />
+          <Explanation>
+            <Text fontSize="xl" fontWeight="medium">
+              STEP 1) 왼팔은 오른쪽 앞으로 넘기고, 오른팔로 당기기
+            </Text>
+            <Text fontSize="xl" fontWeight="medium">
+              STEP 2) 오른팔은 왼쪽 앞으로 넘기고, 왼팔로 당기기
+            </Text>
+          </Explanation>
         </VideoWrapper>
         <WebcamWrapper>
           <Webcam
@@ -139,7 +148,7 @@ export default function ExerciseScreen() {
 }
 
 const Wrapper = styled.div`
-  margin: 4rem auto;
+  margin: 3rem auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -181,6 +190,7 @@ const VideoWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 `;
 
 const Video = styled.video``;
@@ -203,4 +213,16 @@ const ScoreWrapper = styled.div`
     #0072ff,
     #00c6ff
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+`;
+
+const Explanation = styled.div`
+  width: 640px;
+  height: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
 `;
