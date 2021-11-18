@@ -1,5 +1,4 @@
 ## 체육 수업 온라인, 체온
----
 비대면 체육 수업 지원 서비스
 
 - 비대면(원격)으로도 양질의 체육 수업을 제공할 수
@@ -10,7 +9,6 @@
 출결까지 관리 및 성실도 체크가 가능한 서비스
 
 ## Project 배경
----
 - WHO의 청소년 신체 활동량 조사에 의하면 한국
 청소년 중 운동 부족이 94.2%로 146개국 중 1위
 - 디지털화로 인한 청소년 활동량 부족 심화,
@@ -22,11 +20,9 @@
   - 청소년기 학생들의 신체 활동 장려 방안 필요
 
 ## 주요 기능
----
 ![workflow](.\public\assets\workflow.jpg)
 
 ## 주요 기술
----
 ![posenet pipeline](.\public\assets\posenet_pipeline.jpg)
 
 - On-device 내 real-time pose estimation이 가능한
@@ -46,7 +42,6 @@ keypoints 등 여러 출력을 받아 활용함
 estimation을 수행하도록 함
 
 ## 실행 방법
----
 
 우선 레포지토리의 코드를 clone 합니다.
 ```
