@@ -8,8 +8,6 @@ export default function RightShoulderStretching() {
   const [count, setCount] = useState(0);
   const [step, setStep] = useState(0);
 
-  const [stretching, setStretching] = useState(false);
-
   const checkPoses = useCallback((pose) => {
     const {
       leftShoulder,
@@ -42,12 +40,12 @@ export default function RightShoulderStretching() {
       leftLow: getAngle(leftElbow.x, leftElbow.y, leftWrist.x, leftWrist.y),
     };
 
-    setStretching(checkRightShoulderStretching(anglesArms, rightWrist));
+    const right = checkRightShoulderStretching(anglesArms, rightWrist);
   });
 
   useEffect(() => {
-    if (stretching) setCount((count) => count + 1);
-  }, [stretching, count]);
+    if (right) setCount((count) => count + 1);
+  }, [right, count]);
 
   return [count, step, checkPoses];
 }
