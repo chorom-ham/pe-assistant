@@ -9,6 +9,7 @@ import LeftWaistStretching from "./detect-pose/left-waist-stretching";
 import RightWaistStretching from "./detect-pose/right-waist-stretching";
 import LegStretching from "./detect-pose/leg-stretching";
 import LegStretching2 from "./detect-pose/leg-stretching-2";
+import { EXERCISES } from "../constants/exercises";
 
 export function getKeypointsObject(pose) {
   return pose.keypoints.reduce((acc, { part, position, score }) => {
@@ -24,6 +25,5 @@ export function getAngle(x1, y1, x2, y2) {
 }
 
 export default function EstimatePose(action) {
-  switch (action) {
-  }
+  return EXERCISES[action].pose;
 }
