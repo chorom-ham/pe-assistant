@@ -17,7 +17,11 @@ export default async function logIn(id, password, isTeacher) {
         alert("비밀번호가 일치하지 않습니다.");
       } else {
         setCookie("id", records[0].fields.id);
-        location.replace = "/homeworks";
+        setCookie("name", records[0].fields.name);
+        if (!isTeacher) {
+          setCookie("teacher", records[0].fields.teacher);
+          location.replace = "/homeworks";
+        }
       }
     });
 }
