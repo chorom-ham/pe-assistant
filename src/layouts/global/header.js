@@ -11,7 +11,7 @@ export default function GlobalHeader() {
         <Link href="/" passHref>
           <A>
             <Heading as="h1" size="lg" color="white">
-              체육 수업 도우미
+              체온: 체육 온라인
             </Heading>
           </A>
         </Link>

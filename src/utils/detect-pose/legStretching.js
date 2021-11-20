@@ -8,9 +8,6 @@ export default function LegStretching() {
   const [count, setCount] = useState(0);
   const [step, setStep] = useState(0);
 
-  const [leftStretching, setLeftStretching] = useState(false);
-  const [rightStretching, setRightStretching] = useState(false);
-
   const checkPoses = useCallback((pose) => {
     if (pose.keypoints[11].score < 0.1 || pose.keypoints[13].score < 0.1) {
       console.log("can not see");
@@ -30,18 +27,13 @@ export default function LegStretching() {
         leftLow: getAngle(leftHip.x, leftHip.y, leftAnkle.x, leftAnkle.y),
       };
 
-      setLeftStretching(checkLeftLegStretching(anglesLegs));
-      setRightStretching(checkRightLegStretching(anglesLegs));
+      const left = checkLeftLegStretching(anglesLegs);
+      const right = checkRightLegStretching(anglesLegs);
+
+      if (step == 0 && left) setCount((count) => count + 1);
+      else if (step == 1 && right) setCount((count) => count + 1);
     }
   });
-
-  useEffect(() => {
-    if ((step == 0 && leftStretching) || (step == 1 && rightStretching)) {
-      if (step == 0) console.log("left shoulder stretching", count);
-      else if (step == 1) console.log("right shoulder stretching", count);
-      setCount((count) => count + 1);
-    }
-  }, [step, count, leftStretching, rightStretching]);
 
   useEffect(() => {
     if (step == 0 && count > 20) {

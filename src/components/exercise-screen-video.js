@@ -8,7 +8,7 @@ import estimatePose from "src/utils/estimate-pose";
 export default function ExerciseScreen() {
   const [isVideoReady, setIsVideoReady] = useState(true);
   // action: 동작명. 아래 estimatePose 인자를 동작명으로 변경해서 테스트
-  const [count, step, checkPoses] = estimatePose("hajung");
+  const [count, step, checkPoses] = estimatePose("bandupper");
   const checkPose = useCallback((pose) => checkPoses(pose), [checkPoses]);
 
   const videoRef = useRef(null);
@@ -71,7 +71,7 @@ export default function ExerciseScreen() {
       <Wrapper>
         {/* src에 비디오 파일 경로 넣어주면 됨*/}
         <Video
-          src="/assets/hajung.mov"
+          src="../../public/assets/bandupper.mov"
           type="video/mov"
           ref={videoRef}
           width={videoWidth}
