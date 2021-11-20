@@ -1,5 +1,6 @@
 import hajung from "./detect-pose/hajung";
 import shoulderStretching from "./detect-pose/shoulderStretching";
+import leftShoulderStretching from "./detect-pose/leftShoulderStretching";
 import waistStretching from "./detect-pose/waistStretching";
 import legStretching from "./detect-pose/legStretching";
 import legStretching2 from "./detect-pose/legStretching2";
@@ -23,6 +24,8 @@ export default function EstimatePose(action) {
       return hajung();
     case "ShoulderStretching":
       return shoulderStretching();
+    case "LeftShoulderStretching":
+      return leftShoulderStretching();
     case "WaistStretching":
       return waistStretching();
     case "LegStretching":
