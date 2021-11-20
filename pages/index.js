@@ -1,12 +1,10 @@
 import GlobalLayout from "src/layouts/global";
-import Banner from "src/components/banner";
-import CourseList from "src/components/course-list";
+import LogIn from "src/components/login";
 
 export default function Home() {
   return (
     <GlobalLayout>
-      <Banner />
-      <CourseList />
+      <LogIn />
     </GlobalLayout>
   );
 }
