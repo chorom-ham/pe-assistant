@@ -1,4 +1,7 @@
 import hajung from "./detect-pose/hajung";
+import pushup from "./detect-pose/pushup";
+import dumbellupper from "./detect-pose/dumbellupper";
+import bandupper from "./detect-pose/bandupper";
 import shoulderStretching from "./detect-pose/shoulderStretching";
 import waistStretching from "./detect-pose/waistStretching";
 import legStretching from "./detect-pose/legStretching";
@@ -20,6 +23,12 @@ export default function EstimatePose(action) {
   switch (action) {
     case "hajung":
       return hajung();
+    case "pushup":
+      return pushup();
+    case "dumbellupper":
+      return dumbellupper();
+    case "bandupper":
+      return bandupper();
     case "ShoulderStretching":
       return shoulderStretching();
     case "WaistStretching":
