@@ -1,4 +1,5 @@
 import base from "./airtable";
+import { setCookie } from "src/utils/cookie";
 
 export default async function logIn(id, password, isTeacher) {
   const table = isTeacher ? "teacher" : "student";
@@ -19,8 +20,8 @@ export default async function logIn(id, password, isTeacher) {
         setCookie("id", records[0].fields.id);
         setCookie("name", records[0].fields.name);
         if (!isTeacher) {
-          setCookie("teacher", records[0].fields.teacherId);
-          location.replace = "/homeworks";
+          setCookie("teacher", records[0].fields.teacherId[0]);
+          location.href = "/homeworks";
         }
       }
     });
