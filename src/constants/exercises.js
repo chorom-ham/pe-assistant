@@ -1,5 +1,13 @@
 export const EXERCISES = [
   {
+    id: 0,
+    title: "밴드 상체운동",
+    subtitle: "기구를 사용한 근력 운동입니다",
+    description: "",
+    image: "/assets/bandupper.png",
+    pose: "",
+  },
+  {
     id: 1,
     title: "어깨 스트레칭",
     subtitle: "어깨를 유연하게 해줍니다",
@@ -45,14 +53,6 @@ export const EXERCISES = [
     subtitle: "기구를 사용한 근력 운동입니다",
     description: "",
     image: "/assets/dumbellupper.png",
-    pose: "",
-  },
-  {
-    id: 7,
-    title: "밴드 상체운동",
-    subtitle: "기구를 사용한 근력 운동입니다",
-    description: "",
-    image: "/assets/bandupper.png",
     pose: "",
   },
 ];
