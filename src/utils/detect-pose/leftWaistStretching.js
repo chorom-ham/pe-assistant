@@ -3,14 +3,12 @@ import { useState, useCallback, useEffect } from "react";
 import { getKeypointsObject, getAngle } from "../estimate-pose";
 
 // 추후 함수명은 동작 이름으로 변경. 대문자로 시작.
-// 어깨 스트레칭
-export default function LeftShoulderStretching() {
+// 허리 스트레칭
+export default function LeftWaistStretching() {
   const [count, setCount] = useState(0);
   const [step, setStep] = useState(0);
 
   const [stretching, setStretching] = useState(false);
-
-  // let left = false;
 
   const checkPoses = useCallback((pose) => {
     const {
@@ -20,6 +18,7 @@ export default function LeftShoulderStretching() {
       rightElbow,
       leftWrist,
       rightWrist,
+      nose,
     } = getKeypointsObject(pose);
 
     const anglesArms = {
@@ -44,7 +43,12 @@ export default function LeftShoulderStretching() {
       leftLow: getAngle(leftElbow.x, leftElbow.y, leftWrist.x, leftWrist.y),
     };
 
-    if (checkLeftShoulderStretching(anglesArms, leftWrist)) setStretching(true);
+    const anglesNose = {
+      rightElbow: getAngle(nose.x, nose.y, rightElbow.x, rightElbow.y),
+      leftElbow: getAngle(nose.x, nose.y, leftElbow.x, leftElbow.y),
+    };
+
+    if (checkLeftWaistStretching(anglesArms, anglesNose)) setStretching(true);
   });
 
   useEffect(() => {
@@ -54,13 +58,12 @@ export default function LeftShoulderStretching() {
   return [count, step, checkPoses];
 }
 
-// 왼쪽 어깨 스트레칭
-// 왼팔은 오른쪽 앞으로 넘기고, 오른팔로 당기기
-function checkLeftShoulderStretching(anglesArms, leftWrist) {
-  if (leftWrist.score < 0.3) return false;
-  else if (-170 < anglesArms.leftHigh && anglesArms.leftHigh < 145)
-    return false;
-  else if (-70 < anglesArms.rightLow || anglesArms.rightLow < -110)
-    return false;
+// 왼쪽 허리 스트레칭
+// 위와 반대
+function checkLeftWaistStretching(anglesArms, anglesNose) {
+  if (90 > anglesArms.rightHigh || anglesArms.rightHigh > 180) return false;
+  else if (0 > anglesArms.rightLow || anglesArms.rightLow > 90) return false;
+  else if (0 < anglesNose.leftElbow) return false;
+  else if (-90 < anglesArms.leftHigh) return false;
   else return true;
 }
