@@ -8,14 +8,31 @@ export default function LeftShoulderStretching() {
   const [count, setCount] = useState(0);
   const [step, setStep] = useState(0);
 
-  const [leftShoulderStretching, segLeftShoulderStretching] = useState(false);
+  const [stretching, setStretching] = useState(false);
 
   const checkPoses = useCallback((pose) => {
-    const { leftShoulder, leftElbow, leftWrist } = getKeypointsObject(pose);
-
-    console.log(leftShoulder.score, leftElbow.score, leftWrist.score);
+    const {
+      leftShoulder,
+      rightShoulder,
+      leftElbow,
+      rightElbow,
+      leftWrist,
+      rightWrist,
+    } = getKeypointsObject(pose);
 
     const anglesArms = {
+      rightHigh: getAngle(
+        rightShoulder.x,
+        rightShoulder.y,
+        rightElbow.x,
+        rightElbow.y
+      ),
+      rightLow: getAngle(
+        rightElbow.x,
+        rightElbow.y,
+        rightWrist.x,
+        rightWrist.y
+      ),
       leftHigh: getAngle(
         leftShoulder.x,
         leftShoulder.y,
@@ -25,20 +42,12 @@ export default function LeftShoulderStretching() {
       leftLow: getAngle(leftElbow.x, leftElbow.y, leftWrist.x, leftWrist.y),
     };
 
-    segLeftShoulderStretching(
-      checkLeftShoulderStretching(
-        anglesArms,
-        leftShoulder,
-        leftElbow,
-        leftWrist
-      )
-    );
-    // console.log("work");
+    setStretching(checkLeftShoulderStretching(anglesArms, leftWrist));
   });
 
   useEffect(() => {
-    if (leftShoulderStretching) setCount((count) => count + 1);
-  }, [leftShoulderStretching, count]);
+    if (stretching) setCount((count) => count + 1);
+  }, [stretching, count]);
 
   return [count, step, checkPoses];
 }
