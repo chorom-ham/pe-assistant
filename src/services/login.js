@@ -19,7 +19,7 @@ export default async function logIn(id, password, isTeacher) {
         setCookie("id", records[0].fields.id);
         setCookie("name", records[0].fields.name);
         if (!isTeacher) {
-          setCookie("teacher", records[0].fields.teacher);
+          setCookie("teacher", records[0].fields.teacherId);
           location.replace = "/homeworks";
         }
       }
