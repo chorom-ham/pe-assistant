@@ -1,15 +1,14 @@
-import hajung from "./detect-pose/hajung";
-import pushup from "./detect-pose/pushup";
-import dumbellupper from "./detect-pose/dumbellupper";
-import bandupper from "./detect-pose/bandupper";
-import shoulderStretching from "./detect-pose/shoulderStretching";
-import leftShoulderStretching from "./detect-pose/leftShoulderStretching";
-import rightShoulderStretching from "./detect-pose/rightShoulderStretching";
-import waistStretching from "./detect-pose/waistStretching";
-import leftWaistStretching from "./detect-pose/leftWaistStretching";
-import rightWaistStretching from "./detect-pose/rightShoulderStretching";
-import legStretching from "./detect-pose/legStretching";
-import legStretching2 from "./detect-pose/legStretching2";
+import PushUp from "./detect-pose/push-up";
+import DumbbellUpper from "./detect-pose/dumbbell-upper";
+import BandUpper from "./detect-pose/band-upper";
+import ShoulderStretching from "./detect-pose/shoulder-stretching";
+import LeftShoulderStretching from "./detect-pose/left-shoulder-stretching";
+import RightShoulderStretching from "./detect-pose/right-shoulder-stretching";
+import WaistStretching from "./detect-pose/waist-stretching";
+import LeftWaistStretching from "./detect-pose/left-waist-stretching";
+import RightWaistStretching from "./detect-pose/right-waist-stretching";
+import LegStretching from "./detect-pose/leg-stretching";
+import LegStretching2 from "./detect-pose/leg-stretching-2";
 
 export function getKeypointsObject(pose) {
   return pose.keypoints.reduce((acc, { part, position, score }) => {
@@ -26,29 +25,5 @@ export function getAngle(x1, y1, x2, y2) {
 
 export default function EstimatePose(action) {
   switch (action) {
-    case "hajung":
-      return hajung();
-    case "pushup":
-      return pushup();
-    case "dumbellupper":
-      return dumbellupper();
-    case "bandupper":
-      return bandupper();
-    case "ShoulderStretching":
-      return shoulderStretching();
-    case "LeftShoulderStretching":
-      return leftShoulderStretching();
-    case "RightShoulderStretching":
-      return rightShoulderStretching();
-    case "WaistStretching":
-      return waistStretching();
-    case "LeftWaistStretching":
-      return leftWaistStretching();
-    case "RightWaistStretching":
-      return rightWaistStretching();
-    case "LegStretching":
-      return legStretching();
-    case "LegStretching2":
-      return legStretching2();
   }
 }
