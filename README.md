@@ -22,8 +22,7 @@
   - 청소년기 학생들의 신체 활동 장려 방안 필요
 
 ## 주요 기능
-
-![workflow](./public/assetsworkflow.jpg)
+<img width="600" alt="workflow" src="./public/assets/workflow.jpg">
 
 ## 주요 기술
 
