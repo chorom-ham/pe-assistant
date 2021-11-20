@@ -9,8 +9,11 @@ export default function CourseItem({ id, title, subtitle, image }) {
         <Wrapper>
           <Image
             w="16rem"
+            h="9rem"
             src={image}
             alt={title}
+            objectFit="contain"
+            border="1px solid #e6e6e6"
             fallbackSrc="/assets/image-placeholder.png"
           />
           <Heading size="md" mt="1">
@@ -26,7 +29,7 @@ export default function CourseItem({ id, title, subtitle, image }) {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 1rem;
+  margin: 1.5rem 1rem;
 `;
 
 const A = styled.a``;

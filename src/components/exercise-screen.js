@@ -1,14 +1,30 @@
 import { useRef, useCallback } from "react";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import * as posenet from "@tensorflow-models/posenet";
 import Webcam from "react-webcam";
+import { Text, Button, useToast, Image } from "@chakra-ui/react";
 
 import { drawKeypoints, drawSkeleton } from "src/utils/draw";
 import estimatePose from "src/utils/estimate-pose";
 
 export default function ExerciseScreen() {
+  const toast = useToast();
+  const router = useRouter();
+
+  const submitToTeacher = () => {
+    toast({
+      title: "제출 완료",
+      status: "success",
+      isClosable: true,
+      position: "top",
+    });
+    router.push("/");
+  };
+
   // action: 동작명. 아래 estimatePose 인자를 동작명으로 변경해서 테스트
-  const [count, step, checkPoses] = estimatePose("bandupper");
+
+  const [count, step, checkPoses] = estimatePose("ShoulderStretching");
   const checkPose = useCallback((pose) => checkPoses(pose), [checkPoses]);
 
   const webcamRef = useRef(null);
@@ -61,42 +77,152 @@ export default function ExerciseScreen() {
   runPosenet();
 
   return (
-    <>
-      <Wrapper>
-        <Webcam
-          ref={webcamRef}
-          style={{
-            width: videoWidth,
-            height: videoHeight,
-            position: "absolute",
-            top: 0,
-            left: 0,
-          }}
-        />
-        <StyledCanvas
-          ref={canvasRef}
-          style={{
-            width: videoWidth,
-            height: videoHeight,
-          }}
-        />
-      </Wrapper>
-      <p>
-        step:{step} / count: {count}
-      </p>
-    </>
+    <Wrapper>
+      <TopWrapper>
+        <ScoreWrapper>
+          <Text color="white" fontWeight="bold" fontSize="xl">
+            현재 step: {step}
+          </Text>
+        </ScoreWrapper>
+        <ScoreWrapper>
+          <Text color="white" fontWeight="bold" fontSize="xl">
+            동작 수행 횟수: {count}
+          </Text>
+        </ScoreWrapper>
+        <Button size="lg" colorScheme="blue" onClick={submitToTeacher}>
+          선생님께 제출
+        </Button>
+      </TopWrapper>
+      <ExerciseScreenWrapper>
+        <VideoWrapper>
+          {/* <Video
+            src="/assets/hajung.mov"
+            type="video/mov"
+            width={videoWidth}
+            height={videoHeight}
+            autoPlay
+            muted
+            playsInline
+            loop
+          /> */}
+          <Image
+            width={videoWidth}
+            height={videoHeight}
+            src="/assets/shoulderStretching.png"
+            alt="temp"
+            objectFit="contain"
+            border="1px solid #e6e6e6"
+            fallbackSrc="/assets/image-placeholder.png"
+            opacity={0.3}
+          />
+          <Explanation>
+            <Text fontSize="xl" fontWeight="medium">
+              STEP 1) 왼팔은 오른쪽 앞으로 넘기고, 오른팔로 당기기
+            </Text>
+            <Text fontSize="xl" fontWeight="medium">
+              STEP 2) 오른팔은 왼쪽 앞으로 넘기고, 왼팔로 당기기
+            </Text>
+          </Explanation>
+        </VideoWrapper>
+        <WebcamWrapper>
+          <Webcam
+            ref={webcamRef}
+            style={{
+              width: videoWidth,
+              height: videoHeight,
+              position: "absolute",
+              top: 0,
+              left: 0,
+            }}
+          />
+          <StyledCanvas
+            ref={canvasRef}
+            style={{
+              width: videoWidth,
+              height: videoHeight,
+            }}
+          />
+        </WebcamWrapper>
+      </ExerciseScreenWrapper>
+    </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
+  margin: 3rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const TopWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 2rem;
+`;
+
+const ExerciseScreenWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const WebcamWrapper = styled.div`
   width: 640px;
   height: 480px;
   position: relative;
+  margin-left: 20px;
 `;
 
 const StyledCanvas = styled.canvas`
   width: 100%;
   height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
+const VideoWrapper = styled.div`
+  width: 640px;
+  height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+`;
+
+const Video = styled.video``;
+
+const ScoreWrapper = styled.div`
+  width: fit-content;
+  height: fit-content;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #00c6ff; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #0072ff,
+    #00c6ff
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #0072ff,
+    #00c6ff
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+`;
+
+const Explanation = styled.div`
+  width: 640px;
+  height: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   top: 0;
   left: 0;

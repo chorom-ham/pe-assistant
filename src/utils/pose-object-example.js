@@ -1,16 +1,21 @@
 const typesOfPart = [
   "nose",
-  "rightElbow",
-  "leftElbow",
-  "rightWrist",
-  "leftWrist",
-  "rightShoulder",
+  "leftEye",
+  "rightEye",
+  "leftEar",
+  "rightEar",
   "leftShoulder",
+  "rightShoulder",
+  "leftElbow",
+  "rightElbow",
+  "leftWrist",
+  "rightWrist",
+  "leftHip",
   "rightHip",
-  "rightKnee",
   "leftKnee",
-  "rightAnkle",
+  "rightKnee",
   "leftAnkle",
+  "rightAnkle",
 ];
 
 /*

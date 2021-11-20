@@ -2,6 +2,10 @@ import hajung from "./detect-pose/hajung";
 import pushup from "./detect-pose/pushup";
 import dumbellupper from "./detect-pose/dumbellupper";
 import bandupper from "./detect-pose/bandupper";
+import shoulderStretching from "./detect-pose/shoulderStretching";
+import waistStretching from "./detect-pose/waistStretching";
+import legStretching from "./detect-pose/legStretching";
+import legStretching2 from "./detect-pose/legStretching2";
 
 export function getKeypointsObject(pose) {
   return pose.keypoints.reduce((acc, { part, position }) => {
@@ -25,6 +29,13 @@ export default function EstimatePose(action) {
       return dumbellupper();
     case "bandupper":
       return bandupper();
+    case "ShoulderStretching":
+      return shoulderStretching();
+    case "WaistStretching":
+      return waistStretching();
+    case "LegStretching":
+      return legStretching();
+    case "LegStretching2":
+      return legStretching2();
   }
-  // return [count, step, checkPoses];
 }
