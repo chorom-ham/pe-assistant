@@ -1,13 +1,10 @@
 import PushUp from "./detect-pose/push-up";
 import DumbbellUpper from "./detect-pose/dumbbell-upper";
 import BandUpper from "./detect-pose/band-upper";
-import ShoulderStretching from "./detect-pose/shoulder-stretching";
 import LeftShoulderStretching from "./detect-pose/left-shoulder-stretching";
 import RightShoulderStretching from "./detect-pose/right-shoulder-stretching";
-import WaistStretching from "./detect-pose/waist-stretching";
 import LeftWaistStretching from "./detect-pose/left-waist-stretching";
 import RightWaistStretching from "./detect-pose/right-waist-stretching";
-import LegStretching from "./detect-pose/leg-stretching";
 import LegStretching2 from "./detect-pose/leg-stretching-2";
 import { EXERCISES } from "../constants/exercises";
 
