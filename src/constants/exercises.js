@@ -4,7 +4,7 @@ export const EXERCISES = [
     title: "왼쪽 어깨 스트레칭",
     subtitle: "어깨를 유연하게 해줍니다",
     description: "",
-    image: "/assets/left-shoulderStretching.png",
+    image: "/assets/stretchings/left-shoulder-stretching.png",
     pose: "",
   },
   {
@@ -12,7 +12,7 @@ export const EXERCISES = [
     title: "오른쪽 어깨 스트레칭",
     subtitle: "어깨를 유연하게 해줍니다",
     description: "",
-    image: "/assets/legStretching.png",
+    image: "/assets/stretchings/right-shoudler-stretching.png",
     pose: "",
   },
   {
@@ -20,7 +20,7 @@ export const EXERCISES = [
     title: "왼쪽 허리 스트레칭",
     subtitle: "허리를 유연하게 해줍니다",
     description: "",
-    image: "/assets/waistStretching.png",
+    image: "/assets/stretchings/left-waist-stretching.png",
     pose: "",
   },
   {
@@ -28,7 +28,7 @@ export const EXERCISES = [
     title: "오른쪽 허리 스트레칭",
     subtitle: "허리를 유연하게 해줍니다",
     description: "",
-    image: "/assets/waistStretching.png",
+    image: "/assets/stretchings/right-waist-stretching.png",
     pose: "",
   },
   {
@@ -36,7 +36,7 @@ export const EXERCISES = [
     title: "다리 스트레칭",
     subtitle: "허리를 굽혀 스트레칭합니다",
     description: "",
-    image: "/assets/legStretching2.png",
+    image: "/assets/stretchings/leg-stretching.png",
     pose: "",
   },
   {
@@ -48,7 +48,7 @@ export const EXERCISES = [
       "둘째, 머리에서 발 끝까지 일직선을 이룬 상태로 팔을 이용해 몸을 내린다.",
       "셋째, 머리에서 발 끝까지 일직선을 이룬 상태로 팔을 이용해 몸을 올린다.",
     ],
-    image: "/assets/push-up.png",
+    image: "/assets/exercises/push-up.png",
     pose: "PushUp",
   },
   {
@@ -60,7 +60,7 @@ export const EXERCISES = [
       "둘째, 몸의 반동, 팔꿈치의 움직임을 최소화하여 덤벨을 들어올린다.",
       "셋째, 몸의 반동, 팔꿈치의 움직임을 최소화하여 덤벨을 내린다.",
     ],
-    image: "/assets/dumbbell-upper.png",
+    image: "/assets/exercises/dumbbell-upper.png",
     pose: "DumbbellUpper",
   },
   {
@@ -71,7 +71,7 @@ export const EXERCISES = [
       "첫째, 밴드 가운데를 발로 밟는다",
       "둘째, 팔꿈치를 살짝 구부린 상태로 어깨 높이만큼 들어올려준다.",
     ],
-    image: "/assets/band-upper.png",
+    image: "/assets/exercises/band-upper.png",
     pose: "BandUpper",
   },
 ];
