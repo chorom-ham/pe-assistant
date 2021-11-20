@@ -6,6 +6,9 @@ import {
   InputGroup,
   InputRightElement,
   Button,
+  FormControl,
+  FormLabel,
+  Switch,
 } from "@chakra-ui/react";
 
 export default function LogIn() {
@@ -14,9 +17,20 @@ export default function LogIn() {
 
   return (
     <Wrapper>
-      <Heading size="lg" mb="2rem">
+      <Heading size="lg" mb="1rem">
         체온 시작하기
       </Heading>
+      <FormControl
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        mb="1rem"
+      >
+        <FormLabel htmlFor="is-teacher" mb="0">
+          선생님이신가요?
+        </FormLabel>
+        <Switch id="is-teacher" />
+      </FormControl>
       <Input placeholder="아이디" mb="1rem" />
       <InputGroup size="md">
         <Input
