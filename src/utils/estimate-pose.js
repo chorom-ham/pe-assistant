@@ -5,7 +5,8 @@ import legStretching from "./detect-pose/legStretching";
 import legStretching2 from "./detect-pose/legStretching2";
 
 export function getKeypointsObject(pose) {
-  return pose.keypoints.reduce((acc, { part, position }) => {
+  return pose.keypoints.reduce((acc, { part, position, score }) => {
+    position["score"] = score;
     acc[part] = position;
     return acc;
   }, {});
