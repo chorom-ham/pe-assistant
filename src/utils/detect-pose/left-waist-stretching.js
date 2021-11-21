@@ -8,6 +8,7 @@ export default function LeftWaistStretching() {
   const [count, setCount] = useState(0);
   const [step, setStep] = useState(0);
 
+  const [frameCount, setFrameCount] = useState(0);
   const [stretching, setStretching] = useState(false);
 
   const checkPoses = useCallback((pose) => {
@@ -48,12 +49,22 @@ export default function LeftWaistStretching() {
       leftElbow: getAngle(nose.x, nose.y, leftElbow.x, leftElbow.y),
     };
 
-    if (checkLeftWaistStretching(anglesArms, anglesNose)) setStretching(true);
+    if (checkLeftWaistStretching(anglesArms, anglesNose)) {
+      setStretching(true);
+    }
   });
 
   useEffect(() => {
-    if (stretching && count < 30) setCount((count) => count + 1);
-  }, [stretching, count]);
+    if (stretching && frameCount < 150) {
+      setFrameCount((frameCount) => frameCount + 1);
+    }
+  }, [stretching, frameCount]);
+
+  useEffect(() => {
+    if (stretching && count < 30 && frameCount % 5 == 0) {
+      setCount((count) => count + 1);
+    }
+  }, [frameCount, count, stretching]);
 
   return [count, step, checkPoses];
 }
