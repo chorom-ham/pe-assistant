@@ -1,3 +1,4 @@
+/* eslint-disable new-cap */
 import PushUp from "./detect-pose/push-up";
 import DumbbellUpper from "./detect-pose/dumbbell-upper";
 import BandUpper from "./detect-pose/band-upper";
@@ -22,5 +23,8 @@ export function getAngle(x1, y1, x2, y2) {
 }
 
 export default function EstimatePose(action) {
-  return EXERCISES[action].pose;
+  switch (EXERCISES[action].pose) {
+    case "LeftWaistStretching":
+      return LeftWaistStretching();
+  }
 }
