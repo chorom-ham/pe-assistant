@@ -22,6 +22,9 @@ export default async function logIn(id, password, isTeacher) {
         if (!isTeacher) {
           setCookie("teacher", records[0].fields.teacherId[0]);
           location.href = "/homeworks";
+        } else {
+          setCookie("isTeacher", true);
+          location.href = "/check-student";
         }
       }
     });
