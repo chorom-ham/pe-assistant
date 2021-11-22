@@ -60,7 +60,7 @@ class RequestConfig {
 
 export const base = () => {
   const requestConfig = new RequestConfig(
-    `https://api.airtable.com/v0/${process.env.AIRTABLE_ID}/LandingEmail`
+    `https://api.airtable.com/v0/${process.env.AIRTABLE_ID}`
   );
   requestConfig.setToken(process.env.AIRTABLE_KEY);
   return axios.create(requestConfig);

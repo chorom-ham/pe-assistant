@@ -1,10 +1,23 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { Heading } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { Heading, Button } from "@chakra-ui/react";
 
 import COLORS from "src/constants/colors";
+import { getCookie } from "src/utils/cookie";
+import { removeCookie } from "../../utils/cookie";
 
 export default function GlobalHeader() {
+  const router = useRouter();
+  const { pathname } = router;
+
+  const logout = () => {
+    removeCookie("teacher");
+    removeCookie("name");
+    removeCookie("id");
+    router.push("/");
+  };
+
   return (
     <StyledHeader>
       <InnerWrapper>
@@ -15,6 +28,11 @@ export default function GlobalHeader() {
             </Heading>
           </A>
         </Link>
+        {pathname !== "/" && getCookie("id") && (
+          <Button pos="absolute" right="0" onClick={logout}>
+            로그아웃
+          </Button>
+        )}
       </InnerWrapper>
     </StyledHeader>
   );
@@ -41,6 +59,7 @@ const InnerWrapper = styled.div`
   width: 100%;
   height: 100%;
   max-width: 1440px;
+  position: relative;
 `;
 
 const A = styled.a``;
