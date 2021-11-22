@@ -6,7 +6,8 @@ export default function PushUp() {
   const [count, setCount] = useState(0);
   const [step, setStep] = useState(0);
 
-  const [pushup, setPushup] = useState(false);
+  const [push, setPush] = useState(false);
+  const [up, setUp] = useState(false);
 
   const checkPoses = useCallback((pose) => {
     const {
@@ -39,30 +40,42 @@ export default function PushUp() {
       ),
       leftLow: getAngle(leftElbow.x, leftElbow.y, leftWrist.x, leftWrist.y),
     };
-    setPushup(checkPushup(anglesArms));
+    setPush(checkPush(anglesArms));
+    setUp(checkUp(anglesArms));
   });
 
   useEffect(() => {
-    if (step == 0 && pushup) {
-      console.log("push-up", count);
-      setCount((count) => count + 1);
+    if (step == 0 && push) {
+      console.log("push", count);
+      setStep((step) => 1);
     }
-  }, [step, count, pushup]);
+  }, [step, count, push]);
 
   useEffect(() => {
-    if (step == 0 && count > 20) {
-      setStep((step) => 1);
-      setCount((count) => 0);
+    if (step == 1 && up) {
+      console.log("up", count);
+      setStep((step) => 0);
+      setCount((count) => count + 1);
     }
-  }, [step, count]);
+  }, [step, count, up]);
 
   return [count, step, checkPoses];
 }
 
-function checkPushup(anglesArms) {
-  if (anglesArms.leftHigh > 20 || 160 > anglesArms.rightHigh) {
+function checkPush(anglesArms) {
+  if (anglesArms.leftHigh > 20 || 160 < anglesArms.rightHigh) {
     return false;
-  } else if (-10 < anglesArms.leftLow || -30 < anglesArms.rightLow) {
+  } else if (-20 > anglesArms.leftLow || -160 < anglesArms.rightLow) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function checkUp(anglesArms) {
+  if (anglesArms.leftHigh < 60 || 120 < anglesArms.rightHigh) {
+    return false;
+  } else if (-60 < anglesArms.leftLow || -120 > anglesArms.rightLow) {
     return false;
   } else {
     return true;
