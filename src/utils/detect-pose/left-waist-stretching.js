@@ -49,9 +49,7 @@ export default function LeftWaistStretching() {
       leftElbow: getAngle(nose.x, nose.y, leftElbow.x, leftElbow.y),
     };
 
-    if (checkLeftWaistStretching(anglesArms, anglesNose)) {
-      setStretching(true);
-    }
+    setStretching(checkLeftWaistStretching(anglesArms, anglesNose));
   });
 
   useEffect(() => {
@@ -62,7 +60,7 @@ export default function LeftWaistStretching() {
 
   useEffect(() => {
     if (stretching && count < 30 && frameCount % 5 == 0) {
-      setCount((count) => count + 1);
+      setCount((count) => Math.floor(frameCount / 5));
     }
   }, [frameCount, count, stretching]);
 
