@@ -43,6 +43,7 @@ export default function AddHomework() {
             title,
             deadline,
             description,
+            exercise: exerciseList,
             image: [
               {
                 url: "https://ak.picdn.net/shutterstock/videos/1032769898/thumb/1.jpg",
