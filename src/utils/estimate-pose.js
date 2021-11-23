@@ -7,6 +7,7 @@ import RightShoulderStretching from "./detect-pose/right-shoulder-stretching";
 import LeftWaistStretching from "./detect-pose/left-waist-stretching";
 import LeftWaistStretchingMoving from "./detect-pose/left-waist-stretching-moving";
 import RightWaistStretching from "./detect-pose/right-waist-stretching";
+import RightWaistStretchingMoving from "./detect-pose/right-waist-stretching-moving";
 import LegStretching2 from "./detect-pose/leg-stretching-2";
 import { EXERCISES } from "../constants/exercises";
 
@@ -27,5 +28,7 @@ export default function EstimatePose(action) {
   switch (EXERCISES[action].pose) {
     case "LeftWaistStretching":
       return LeftWaistStretchingMoving();
+    case "RightWaistStretching":
+      return RightWaistStretchingMoving();
   }
 }
