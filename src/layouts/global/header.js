@@ -47,6 +47,13 @@ export default function GlobalHeader() {
           <Heading size="lg">메뉴 선택</Heading>
         </DrawerHeader>
         <DrawerBody display="flex" flexDirection="column">
+          <Link href="/check-student" passHref>
+            <A>
+              <Text fontSize="xl" fontWeight="medium">
+                학생 목록 확인
+              </Text>
+            </A>
+          </Link>
           <Link href="/check-homework" passHref>
             <A>
               <Text fontSize="xl" fontWeight="medium">
