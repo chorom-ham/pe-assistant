@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
-import { Heading, Text, Button, Input } from "@chakra-ui/react";
+import { Heading, Text, Button, Input, useToast } from "@chakra-ui/react";
 
 import COLORS from "src/constants/colors";
 import { EXERCISES } from "src/constants/exercises";
@@ -15,6 +15,7 @@ export default function AddHomework() {
   const [deadline, setDeadline] = useState(null);
   const [exerciseList, setExerciseList] = useState(null);
 
+  const toast = useToast();
   const router = useRouter();
   const { addNewHomework, isMutationError } = useHomework();
 
@@ -57,6 +58,12 @@ export default function AddHomework() {
     if (isMutationError) {
       alert("오류가 발생했습니다");
     } else {
+      toast({
+        title: "제출 완료",
+        status: "success",
+        isClosable: true,
+        position: "top",
+      });
       router.push("/check-student");
     }
   };
