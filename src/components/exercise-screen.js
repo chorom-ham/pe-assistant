@@ -5,7 +5,7 @@ import * as posenet from "@tensorflow-models/posenet";
 import Webcam from "react-webcam";
 import { Text, Button, useToast, Image } from "@chakra-ui/react";
 
-import EXERCISES from "src/constants/exercises";
+import { EXERCISES } from "src/constants/exercises";
 import { drawKeypoints, drawSkeleton } from "src/utils/draw";
 import estimatePose from "src/utils/estimate-pose";
 
@@ -25,6 +25,7 @@ export default function ExerciseScreen() {
 
   // estimatePose 인자로 EXERCISE 배열 id.
   const id = 2;
+
   const [count, step, checkPoses] = estimatePose(id);
   const checkPose = useCallback((pose) => checkPoses(pose), [checkPoses]);
 
