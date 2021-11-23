@@ -5,6 +5,7 @@ import * as posenet from "@tensorflow-models/posenet";
 import Webcam from "react-webcam";
 import { Text, Button, useToast, Image } from "@chakra-ui/react";
 
+import EXERCISES from "src/constants/exercises";
 import { drawKeypoints, drawSkeleton } from "src/utils/draw";
 import estimatePose from "src/utils/estimate-pose";
 
@@ -19,12 +20,12 @@ export default function ExerciseScreen() {
       isClosable: true,
       position: "top",
     });
-    router.push("/");
+    router.push("/homeworks");
   };
 
-  // action: 동작명. 아래 estimatePose 인자를 동작명으로 변경해서 테스트
-
-  const [count, step, checkPoses] = estimatePose(2);
+  // estimatePose 인자로 EXERCISE 배열 id.
+  const id = 2;
+  const [count, step, checkPoses] = estimatePose(id);
   const checkPose = useCallback((pose) => checkPoses(pose), [checkPoses]);
 
   const webcamRef = useRef(null);
@@ -71,7 +72,7 @@ export default function ExerciseScreen() {
 
     setInterval(() => {
       detectWebcamFeed(posenetModel);
-    }, 200);
+    }, 1000);
   };
 
   runPosenet();
@@ -95,33 +96,22 @@ export default function ExerciseScreen() {
       </TopWrapper>
       <ExerciseScreenWrapper>
         <VideoWrapper>
-          {/* <Video
-            src="/assets/hajung.mov"
-            type="video/mov"
-            width={videoWidth}
-            height={videoHeight}
-            autoPlay
-            muted
-            playsInline
-            loop
-          /> */}
           <Image
             width={videoWidth}
             height={videoHeight}
-            src="/assets/shoulderStretching.png"
-            alt="temp"
+            src={EXERCISES[id].image}
+            alt={EXERCISES[id].title}
             objectFit="contain"
             border="1px solid #e6e6e6"
             fallbackSrc="/assets/image-placeholder.png"
             opacity={0.3}
           />
           <Explanation>
-            <Text fontSize="xl" fontWeight="medium">
-              STEP 1) 왼팔은 오른쪽 앞으로 넘기고, 오른팔로 당기기
-            </Text>
-            <Text fontSize="xl" fontWeight="medium">
-              STEP 2) 오른팔은 왼쪽 앞으로 넘기고, 왼팔로 당기기
-            </Text>
+            {EXERCISES[id].description.map((text, index) => (
+              <Text fontSize="xl" fontWeight="medium" key={index}>
+                {text}
+              </Text>
+            ))}
           </Explanation>
         </VideoWrapper>
         <WebcamWrapper>
@@ -193,8 +183,6 @@ const VideoWrapper = styled.div`
   justify-content: center;
   position: relative;
 `;
-
-const Video = styled.video``;
 
 const ScoreWrapper = styled.div`
   width: fit-content;
