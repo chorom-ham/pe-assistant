@@ -10,41 +10,59 @@ export default function LegStretching() {
   const [count, setCount] = useState(0);
   const [step, setStep] = useState(0);
 
+  const [up, setUp] = useState(false);
+  const [down, setDown] = useState(false);
+
   const checkPoses = useCallback((pose) => {
-    if (pose.keypoints[11].score < 0.1 || pose.keypoints[13].score < 0.1) {
-      console.log("can not see");
+    const { rightShoulder, rightHip, rightKnee } = getKeypointsObject(pose);
+
+    const angles = {
+      upperBody: getAngle(
+        rightHip.x,
+        rightHip.y,
+        rightShoulder.x,
+        rightShoulder.y
+      ),
+      legHigh: getAngle(rightHip.x, rightHip.y, rightKnee.x, rightKnee.y),
+    };
+
+    if (rightKnee.score > 0.3) {
+      // console.log(angles.upperBody);
+      setUp(checkLegStretchingUp(angles));
+      setDown(checkLegStretchingDown(angles));
     } else {
-      const { rightShoulder, rightHip, rightKnee } = getKeypointsObject(pose);
-
-      const angles = {
-        upperBody: getAngle(
-          rightHip.x,
-          rightHip.y,
-          rightShoulder.x,
-          rightShoulder.y
-        ),
-        leg: getAngle(rightHip.x, rightHip.y, rightKnee.x, rightKnee.y),
-      };
-
-      const legStretching = checkLegStretching(angles);
-      if (step == 0 && legStretching) setCount((count) => count + 1);
+      setUp(false);
+      setDown(false);
     }
   });
 
   useEffect(() => {
-    if (step == 0 && count > 20) {
+    if (down && step == 0) {
+      console.log("down");
       setStep((step) => 1);
-      setCount((count) => 0);
     }
-  }, [step, count]);
+  }, [down, step]);
+
+  useEffect(() => {
+    if (up && step == 1) {
+      console.log("up");
+      setStep((step) => 0);
+      setCount((count) => count + 1);
+    }
+  }, [up, step, count]);
 
   return [count, step, checkPoses];
 }
 
 // 양 다리 스트레칭
 // 몸 앞으로 숙이기
-function checkLegStretching(angles) {
-  if (70 > angles.leg || angles.leg > 110) return false;
-  else if (0 > angles.upperBody) return false;
+function checkLegStretchingDown(angles) {
+  if (70 > angles.legHigh || angles.legHigh > 110) return false;
+  else if (5 > angles.upperBody || angles.upperBody > 175) return false;
+  else return true;
+}
+
+function checkLegStretchingUp(angles) {
+  if (-145 > angles.upperBody || angles.upperBody > -35) return false;
   else return true;
 }
