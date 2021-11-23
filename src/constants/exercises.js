@@ -74,4 +74,15 @@ export const EXERCISES = [
     image: "/assets/exercises/band-upper.png",
     pose: "BandUpper",
   },
+  {
+    id: 8,
+    title: "어깨 스트레칭",
+    subtitle: "어깨를 유연하게 해줍니다",
+    description: [
+      "첫째, 양팔을 쭉 펴고 양 옆으로 벌립니다.",
+      "둘째, 두 팔을 가습 앞에서 모아줍니다.",
+    ],
+    image: "/assets/stretchings/left-shoulder-stretching.png",
+    pose: "ShoulderStretchingDynamic",
+  },
 ];

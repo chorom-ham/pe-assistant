@@ -2,6 +2,7 @@
 import PushUp from "./detect-pose/push-up";
 import DumbbellUpper from "./detect-pose/dumbbell-upper";
 import BandUpper from "./detect-pose/band-upper";
+import ShoulderStretchingDynamic from "./detect-pose/shoulder-stretching-dynamic";
 import LeftShoulderStretching from "./detect-pose/left-shoulder-stretching";
 import RightShoulderStretching from "./detect-pose/right-shoulder-stretching";
 import LeftWaistStretching from "./detect-pose/left-waist-stretching";
@@ -32,5 +33,7 @@ export default function EstimatePose(action) {
       return RightWaistStretchingDynamic();
     case "LegStretching":
       return LegStretching();
+    case "ShoulderStretchingDynamic":
+      return ShoulderStretchingDynamic();
   }
 }
