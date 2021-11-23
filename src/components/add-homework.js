@@ -46,7 +46,7 @@ export default function AddHomework() {
             exercise: exerciseList.toString(),
             image: [
               {
-                url: "https://ak.picdn.net/shutterstock/videos/1032769898/thumb/1.jpg",
+                url: "https://dl.airtable.com/.attachments/d4a706285d904cf3947a73cd704aa729/1789c231/1.jpg",
               },
             ],
             teacher: [getCookie("teacherAirtableId")],
