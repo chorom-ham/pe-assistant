@@ -43,7 +43,7 @@ export default function AddHomework() {
             title,
             deadline,
             description,
-            exercise: exerciseList,
+            exercise: exerciseList.toString(),
             image: [
               {
                 url: "https://ak.picdn.net/shutterstock/videos/1032769898/thumb/1.jpg",
@@ -60,7 +60,7 @@ export default function AddHomework() {
       alert("오류가 발생했습니다");
     } else {
       toast({
-        title: "제출 완료",
+        title: "추가 완료",
         status: "success",
         isClosable: true,
         position: "top",
