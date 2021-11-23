@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import useHomeworkList from "../hooks/useHomeworkList";
 
-export default function HomeworkSelect({ setHomeworkId }) {
+export default function HomeworkSelect({ setCompletedStudents }) {
   const { isLoading, isError, data } = useHomeworkList();
 
   if (isLoading) {
@@ -15,14 +15,16 @@ export default function HomeworkSelect({ setHomeworkId }) {
   }
 
   const handleChange = (e) => {
-    setHomeworkId(e.target.value);
+    if (e.target.value !== "") {
+      setCompletedStudents(e.target.value.split(","));
+    }
   };
 
   return (
     <SelectWrapper>
       <Select placeholder="과제를 선택하세요" size="lg" onChange={handleChange}>
         {data.map((item) => (
-          <option key={item.fields.id} value={item.fields.id}>
+          <option key={item.fields.id} value={item.fields.completed}>
             {item.fields.title}
           </option>
         ))}
