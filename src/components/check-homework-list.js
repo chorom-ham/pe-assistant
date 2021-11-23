@@ -31,7 +31,7 @@ export default function CheckHomeworkList() {
             <Student
               key={item.fields.name}
               name={item.fields.name}
-              isDone={completedStudents.includes(item.fields.id)}
+              isDone={completedStudents?.includes(item.fields.id)}
             />
           ))}
         </ItemContainer>

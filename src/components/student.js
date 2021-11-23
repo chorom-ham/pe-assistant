@@ -14,6 +14,11 @@ export default function Student({ name, isDone }) {
       <Heading size="lg" mt="1">
         {name}
       </Heading>
+      {isDone !== undefined && (
+        <Heading size="sm" color={isDone ? "blue.600" : "red.500"}>
+          {isDone ? "완료" : "미완료"}
+        </Heading>
+      )}
     </Wrapper>
   );
 }
