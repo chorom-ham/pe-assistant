@@ -1,10 +1,10 @@
 import { Select, Heading } from "@chakra-ui/react";
 import styled from "styled-components";
 
-import useHomeworkList from "../hooks/useHomeworkList";
+import useHomework from "../hooks/useHomework";
 
 export default function HomeworkSelect({ setCompletedStudents }) {
-  const { isLoading, isError, data } = useHomeworkList();
+  const { isLoading, isError, data } = useHomework();
 
   if (isLoading) {
     return <Heading>Loading...</Heading>;

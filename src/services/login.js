@@ -24,6 +24,7 @@ export default async function logIn(id, password, isTeacher) {
           location.href = "/homeworks";
         } else {
           setCookie("isTeacher", true);
+          setCookie("teacherAirtableId", records[0].id);
           location.href = "/check-student";
         }
       }

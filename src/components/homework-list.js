@@ -2,11 +2,11 @@ import { Heading, Text } from "@chakra-ui/react";
 import styled from "styled-components";
 
 import { getCookie } from "src/utils/cookie";
-import useHomeworkList from "../hooks/useHomeworkList";
+import useHomework from "../hooks/useHomework";
 import HomeworkItem from "./homework-item";
 
 export default function HomeworkList() {
-  const { isLoading, isError, data } = useHomeworkList();
+  const { isLoading, isError, data } = useHomework();
 
   if (isLoading) {
     return <Heading>Loading...</Heading>;

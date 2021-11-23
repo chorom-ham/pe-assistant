@@ -1,10 +1,11 @@
-import { useQuery } from "react-query";
+import { useQuery, useMutation, useQueryClient } from "react-query";
 
 import { getCookie } from "src/utils/cookie";
 import { base } from "./api";
 
-export default function useHomeworkList() {
-  const key = "homeworkList";
+export default function useHomework() {
+  const queryClient = useQueryClient();
+  const key = "homework";
 
   const getHomeworkList = () =>
     base()
@@ -19,9 +20,20 @@ export default function useHomeworkList() {
     enabled: !!getCookie("teacher") || !!getCookie("isTeacher"),
   });
 
+  const createMutation = useMutation(
+    (homeworkList) => base().post(`/homework`, homeworkList),
+    {
+      onSuccess: () => {
+        refresh();
+      },
+    }
+  );
+
   return {
     isLoading: homeworkListQuery.isLoading,
     isError: homeworkListQuery.isError,
     data: homeworkListQuery.isSuccess ? homeworkListQuery.data : null,
+    addNewHomework: createMutation.mutate,
+    isMutationError: createMutation.isError,
   };
 }
