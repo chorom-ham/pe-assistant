@@ -6,7 +6,8 @@ export default function BandUpper() {
   const [count, setCount] = useState(0);
   const [step, setStep] = useState(0);
 
-  const [bandUpper, setBandUpper] = useState(false);
+  const [bandUp, setBandUp] = useState(false);
+  const [bandDown, setBandDown] = useState(false);
 
   const checkPoses = useCallback((pose) => {
     const {
@@ -39,52 +40,40 @@ export default function BandUpper() {
       ),
       leftLow: getAngle(leftElbow.x, leftElbow.y, leftWrist.x, leftWrist.y),
     };
-    setBandUpper(checkBandUpper(anglesArms));
+    setBandUp(checkBandUp(anglesArms));
+    setBandDown(checkBandDown(anglesArms));
   });
 
   useEffect(() => {
-    if (step == 0 && bandUpper) {
-      console.log("upper body resistance band", count);
-      setCount((count) => count + 1);
+    if (step == 0 && bandUp) {
+      console.log("band up", count);
+      setStep((step) => 1);
     }
-  }, [step, count, bandUpper]);
+  }, [step, count, bandUp]);
 
   useEffect(() => {
-    if (step == 0 && count > 20) {
-      setStep((step) => 1);
-      setCount((count) => 0);
+    if (step == 1 && bandDown) {
+      console.log("band down", count);
+      setStep((step) => 0);
+      setCount((count) => count + 1);
     }
-  }, [step, count]);
+  }, [step, count, bandDown]);
 
   return [count, step, checkPoses];
 }
 
-function checkBandUpper(anglesArms) {
-  if (anglesArms.leftHigh > 60 || anglesArms.rightHigh < 60) {
-    return false;
-  } else if (anglesArms.leftLow > -110 || anglesArms.rightLow < -80) {
+function checkBandUp(anglesArms) {
+  if (anglesArms.leftHigh > 60 || anglesArms.rightHigh < 120) {
     return false;
   } else {
     return true;
   }
 }
 
-// function checkDownLeft(anglesArms) {
-//   if (anglesArms.leftHigh < 80) {
-//     return false;
-//   } else if (-80 < anglesArms.leftLow) {
-//     return false;
-//   } else {
-//     return true;
-//   }
-// }
-
-// function checkDownRight(anglesArms) {
-//   if (anglesArms.rightHigh < 80) {
-//     return false;
-//   } else if (-80 < anglesArms.rightLow) {
-//     return false;
-//   } else {
-//     return true;
-//   }
-// }
+function checkBandDown(anglesArms) {
+  if (anglesArms.leftHigh < 60 || anglesArms.rightHigh < 120) {
+    return false;
+  } else {
+    return true;
+  }
+}
