@@ -4,12 +4,13 @@ import { getKeypointsObject, getAngle } from "../estimate-pose";
 
 // 추후 함수명은 동작 이름으로 변경. 대문자로 시작.
 // 허리 스트레칭
-export default function LeftWaistStretching() {
+export default function LeftWaistStretchingDynamic() {
+  // console.log("work left waist stretching moving");
   const [count, setCount] = useState(0);
   const [step, setStep] = useState(0);
 
-  const [frameCount, setFrameCount] = useState(0);
-  const [stretching, setStretching] = useState(false);
+  const [up, setUp] = useState(false);
+  const [down, setDown] = useState(false);
 
   const checkPoses = useCallback((pose) => {
     const {
@@ -49,30 +50,40 @@ export default function LeftWaistStretching() {
       leftElbow: getAngle(nose.x, nose.y, leftElbow.x, leftElbow.y),
     };
 
-    setStretching(checkLeftWaistStretching(anglesArms, anglesNose));
+    setUp(checkLeftWaistStretchingUp(anglesArms, anglesNose));
+    setDown(checkLeftWaistStretchingDown(anglesArms));
   });
 
   useEffect(() => {
-    if (stretching && frameCount < 150) {
-      setFrameCount((frameCount) => frameCount + 1);
+    if (up && step == 0) {
+      console.log("up");
+      setStep((step) => 1);
     }
-  }, [stretching, frameCount]);
+  }, [up, step]);
 
   useEffect(() => {
-    if (stretching && count < 30 && frameCount % 5 == 0) {
-      setCount((count) => Math.floor(frameCount / 5));
+    if (down && step == 1) {
+      console.log("down");
+      setStep((step) => 0);
+      setCount((count) => count + 1);
     }
-  }, [frameCount, count, stretching]);
+  }, [down, step, count]);
 
   return [count, step, checkPoses];
 }
 
 // 왼쪽 허리 스트레칭
-// 위와 반대
-function checkLeftWaistStretching(anglesArms, anglesNose) {
+// 오른손을 허리에 두고, 왼쪽 팔을 펴서 머리 위로 넘기기
+function checkLeftWaistStretchingUp(anglesArms, anglesNose) {
   if (90 > anglesArms.rightHigh || anglesArms.rightHigh > 180) return false;
   else if (0 > anglesArms.rightLow || anglesArms.rightLow > 90) return false;
   else if (0 < anglesNose.leftElbow) return false;
   else if (-90 < anglesArms.leftHigh) return false;
+  else return true;
+}
+
+// 왼쪽 팔을 내리기(어깨보다 팔꿈치가 아래로 가게)
+function checkLeftWaistStretchingDown(anglesArms) {
+  if (0 > anglesArms.leftHigh) return false;
   else return true;
 }
