@@ -8,7 +8,7 @@ import LeftWaistStretching from "./detect-pose/left-waist-stretching";
 import LeftWaistStretchingMoving from "./detect-pose/left-waist-stretching-moving";
 import RightWaistStretching from "./detect-pose/right-waist-stretching";
 import RightWaistStretchingMoving from "./detect-pose/right-waist-stretching-moving";
-import LegStretching2 from "./detect-pose/leg-stretching-2";
+import LegStretching from "./detect-pose/leg-stretching";
 import { EXERCISES } from "../constants/exercises";
 
 export function getKeypointsObject(pose) {
@@ -30,5 +30,7 @@ export default function EstimatePose(action) {
       return LeftWaistStretchingMoving();
     case "RightWaistStretching":
       return RightWaistStretchingMoving();
+    case "LegStretching":
+      return LegStretching();
   }
 }

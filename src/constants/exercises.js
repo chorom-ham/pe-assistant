@@ -37,7 +37,7 @@ export const EXERCISES = [
     subtitle: "다리 뒷쪽을 유연하게 해줍니다.",
     description: ["양 다리를 곧게 펴고 서서, 허리를 바닥으로 숙여줍니다."],
     image: "/assets/stretchings/leg-stretching.png",
-    pose: "LegStretching2",
+    pose: "LegStretching",
   },
   {
     id: 5,
