@@ -5,6 +5,7 @@ import BandUpper from "./detect-pose/band-upper";
 import LeftShoulderStretching from "./detect-pose/left-shoulder-stretching";
 import RightShoulderStretching from "./detect-pose/right-shoulder-stretching";
 import LeftWaistStretching from "./detect-pose/left-waist-stretching";
+import LeftWaistStretchingMoving from "./detect-pose/left-waist-stretching-moving";
 import RightWaistStretching from "./detect-pose/right-waist-stretching";
 import LegStretching2 from "./detect-pose/leg-stretching-2";
 import { EXERCISES } from "../constants/exercises";
@@ -25,6 +26,6 @@ export function getAngle(x1, y1, x2, y2) {
 export default function EstimatePose(action) {
   switch (EXERCISES[action].pose) {
     case "LeftWaistStretching":
-      return LeftWaistStretching();
+      return LeftWaistStretchingMoving();
   }
 }
