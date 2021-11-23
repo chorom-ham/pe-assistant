@@ -4,7 +4,7 @@ import { getKeypointsObject, getAngle } from "../estimate-pose";
 
 // 추후 함수명은 동작 이름으로 변경. 대문자로 시작.
 // 허리 스트레칭
-export default function LeftWaistStretchingMoving() {
+export default function LeftWaistStretchingDynamic() {
   // console.log("work left waist stretching moving");
   const [count, setCount] = useState(0);
   const [step, setStep] = useState(0);
