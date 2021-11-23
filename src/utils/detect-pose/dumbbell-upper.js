@@ -46,31 +46,27 @@ export default function DumbbellUpper() {
   });
 
   useEffect(() => {
-    if ((step == 0 && leftDumbell) || (step == 1 && rightDumbell)) {
-      if (step == 0) console.log("left dumbell", count);
-      else if (step == 1) console.log("right dumbell", count);
-      setCount((count) => count + 1);
+    if (step == 0 && (leftDumbell || rightDumbell)) {
+      console.log("dumbbell up", count);
+      setStep((step) => 1);
     }
   }, [step, count, leftDumbell, rightDumbell]);
 
   useEffect(() => {
-    if (step == 0 && count > 20) {
-      setStep((step) => 1);
-      setCount((count) => 0);
+    if ((step == 1) != (leftDumbell || rightDumbell)) {
+      console.log("dumbbell down", count);
+      setStep((step) => 0);
+      setCount((count) => count + 1);
     }
-    if (step == 1 && count > 20) {
-      setStep((step) => 2);
-      setCount((count) => 0);
-    }
-  }, [step, count]);
+  }, [step, count, leftDumbell, rightDumbell]);
 
   return [count, step, checkPoses];
 }
 
 function checkLeftDumbell(anglesArms) {
-  if (anglesArms.leftHigh < 80) {
+  if (anglesArms.leftHigh < 60) {
     return false;
-  } else if (anglesArms.leftLow < 20) {
+  } else if (anglesArms.leftLow < 50) {
     return false;
   } else {
     return true;
@@ -78,31 +74,11 @@ function checkLeftDumbell(anglesArms) {
 }
 
 function checkRightDumbell(anglesArms) {
-  if (anglesArms.rightHigh < 80) {
+  if (anglesArms.rightHigh < 60) {
     return false;
-  } else if (anglesArms.rightLow < 20) {
+  } else if (anglesArms.rightLow < 50) {
     return false;
   } else {
     return true;
   }
 }
-
-// function checkDownLeft(anglesArms) {
-//   if (anglesArms.leftHigh < 80) {
-//     return false;
-//   } else if (-80 < anglesArms.leftLow) {
-//     return false;
-//   } else {
-//     return true;
-//   }
-// }
-
-// function checkDownRight(anglesArms) {
-//   if (anglesArms.rightHigh < 80) {
-//     return false;
-//   } else if (-80 < anglesArms.rightLow) {
-//     return false;
-//   } else {
-//     return true;
-//   }
-// }
