@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { isMobile } from "src/utils/draw";
 import GlobalLayout from "src/layouts/global";
-import ExerciseScreen from "src/components/exercise-screen";
+import DoHomework from "src/components/do-homework";
 
 export default function Course() {
   const [isMobileDevice, setIsMobileDevice] = useState(false);
@@ -16,7 +16,7 @@ export default function Course() {
 
   return (
     <GlobalLayout>
-      <ExerciseScreen />
+      <DoHomework />
     </GlobalLayout>
   );
 }

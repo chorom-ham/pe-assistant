@@ -1,88 +1,16 @@
 import { useRef, useCallback } from "react";
-import { useRouter } from "next/router";
 import styled from "styled-components";
 import * as posenet from "@tensorflow-models/posenet";
 import Webcam from "react-webcam";
-import { Heading, Text, Button, useToast, Image } from "@chakra-ui/react";
+import { Text, Image } from "@chakra-ui/react";
 
 import { EXERCISES } from "src/constants/exercises";
 import { drawKeypoints, drawSkeleton } from "src/utils/draw";
 import estimatePose from "src/utils/estimate-pose";
-import useHomework from "../hooks/useHomework";
-import { getCookie } from "src/utils/cookie";
 
-export default function ExerciseScreen() {
-  const toast = useToast();
-  const router = useRouter();
+export default function ExerciseScreen({ id }) {
+  const [count, step, checkPoses] = estimatePose(id); // estimatePose 인자로 EXERCISE 배열 id.
 
-  const { isLoading, isError, homeworkItem, updateHomework } = useHomework();
-
-  const submitToTeacher = () => {
-    if (isLoading) return;
-    if (
-      homeworkItem[0].fields.completed &&
-      homeworkItem[0].fields.completed !== ""
-    ) {
-      const updatedHomework = {
-        records: [
-          {
-            id: homeworkItem[0].id,
-            fields: {
-              title: homeworkItem[0].fields.title,
-              exercise: homeworkItem[0].fields.exercise,
-              deadline: homeworkItem[0].fields.deadline,
-              description: homeworkItem[0].fields.description,
-              image: [
-                {
-                  id: homeworkItem[0].fields.image[0].id,
-                },
-              ],
-              teacher: homeworkItem[0].fields.teacher,
-              completed:
-                homeworkItem[0].fields.completed + "," + getCookie("id"),
-            },
-          },
-        ],
-      };
-      console.log(updatedHomework);
-      updateHomework(updatedHomework);
-    } else {
-      const updatedHomework = {
-        records: [
-          {
-            id: homeworkItem[0].id,
-            fields: {
-              title: homeworkItem[0].fields.title,
-              exercise: homeworkItem[0].fields.exercise,
-              deadline: homeworkItem[0].fields.deadline,
-              description: homeworkItem[0].fields.description,
-              image: [
-                {
-                  id: homeworkItem[0].fields.image[0].id,
-                },
-              ],
-              teacher: homeworkItem[0].fields.teacher,
-              completed: getCookie("id"),
-            },
-          },
-        ],
-      };
-      console.log(updatedHomework);
-      updateHomework(updatedHomework);
-    }
-    toast({
-      title: "제출 완료",
-      status: "success",
-      isClosable: true,
-      position: "top",
-    });
-    router.push("/homeworks");
-  };
-
-  // estimatePose 인자로 EXERCISE 배열 id.
-  const id = 4;
-
-  const [count, step, checkPoses] = estimatePose(id);
   const checkPose = useCallback((pose) => checkPoses(pose), [checkPoses]);
 
   const webcamRef = useRef(null);
@@ -92,6 +20,9 @@ export default function ExerciseScreen() {
   const videoHeight = 480;
 
   const drawResult = (pose, video, videoWidth, videoHeight, canvas) => {
+    if (!canvas.current) {
+      return;
+    }
     const ctx = canvas.current.getContext("2d");
     canvas.current.width = videoWidth;
     canvas.current.height = videoHeight;
@@ -132,93 +63,51 @@ export default function ExerciseScreen() {
     }, 1000);
   };
 
-  if (isLoading) {
-    return <Heading>Loading...</Heading>;
-  }
-
-  if (!isLoading && (isError || !homeworkItem)) {
-    return <Heading>Error!</Heading>;
-  }
-
   runPosenet();
 
   return (
-    <Wrapper>
-      <TopWrapper>
-        <ScoreWrapper>
-          <Text color="white" fontWeight="bold" fontSize="xl">
-            현재 step: {step}
-          </Text>
-        </ScoreWrapper>
-        <ScoreWrapper>
-          <Text color="white" fontWeight="bold" fontSize="xl">
-            동작 수행 횟수: {count}
-          </Text>
-        </ScoreWrapper>
-        <Button size="lg" colorScheme="blue" onClick={submitToTeacher}>
-          선생님께 제출
-        </Button>
-      </TopWrapper>
-      <ExerciseScreenWrapper>
-        <VideoWrapper>
-          <Image
-            width={videoWidth}
-            height={videoHeight}
-            src={EXERCISES[id].image}
-            alt={EXERCISES[id].title}
-            objectFit="contain"
-            border="1px solid #e6e6e6"
-            fallbackSrc="/assets/image-placeholder.png"
-            opacity={0.3}
-          />
-          <Explanation>
-            {EXERCISES[id].description.map((text, index) => (
-              <Text fontSize="xl" fontWeight="medium" key={index}>
-                {text}
-              </Text>
-            ))}
-          </Explanation>
-        </VideoWrapper>
-        <WebcamWrapper>
-          <Webcam
-            mirrored={true}
-            ref={webcamRef}
-            style={{
-              width: videoWidth,
-              height: videoHeight,
-              position: "absolute",
-              top: 0,
-              left: 0,
-            }}
-          />
-          <StyledCanvas
-            ref={canvasRef}
-            style={{
-              width: videoWidth,
-              height: videoHeight,
-            }}
-          />
-        </WebcamWrapper>
-      </ExerciseScreenWrapper>
-    </Wrapper>
+    <ExerciseScreenWrapper>
+      <VideoWrapper>
+        <Image
+          width={videoWidth}
+          height={videoHeight}
+          src={EXERCISES[id].image}
+          alt={EXERCISES[id].title}
+          objectFit="contain"
+          border="1px solid #e6e6e6"
+          fallbackSrc="/assets/image-placeholder.png"
+          opacity={0.3}
+        />
+        <Explanation>
+          {EXERCISES[id].description.map((text, index) => (
+            <Text fontSize="xl" fontWeight="medium" key={index}>
+              {text}
+            </Text>
+          ))}
+        </Explanation>
+      </VideoWrapper>
+      <WebcamWrapper>
+        <Webcam
+          ref={webcamRef}
+          style={{
+            width: videoWidth,
+            height: videoHeight,
+            position: "absolute",
+            top: 0,
+            left: 0,
+          }}
+        />
+        <StyledCanvas
+          ref={canvasRef}
+          style={{
+            width: videoWidth,
+            height: videoHeight,
+          }}
+        />
+      </WebcamWrapper>
+    </ExerciseScreenWrapper>
   );
 }
-
-const Wrapper = styled.div`
-  margin: 3rem auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
-const TopWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin-bottom: 2rem;
-`;
 
 const ExerciseScreenWrapper = styled.div`
   display: flex;
@@ -239,6 +128,8 @@ const StyledCanvas = styled.canvas`
   position: absolute;
   top: 0;
   left: 0;
+  scale: (-1, 1);
+  translate: (-200, 0);
 `;
 
 const VideoWrapper = styled.div`
@@ -249,27 +140,6 @@ const VideoWrapper = styled.div`
   justify-content: center;
   position: relative;
 `;
-
-const ScoreWrapper = styled.div`
-  width: fit-content;
-  height: fit-content;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #00c6ff; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #0072ff,
-    #00c6ff
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #0072ff,
-    #00c6ff
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-`;
-
 const Explanation = styled.div`
   width: 640px;
   height: 480px;
