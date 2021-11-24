@@ -181,6 +181,7 @@ export default function ExerciseScreen() {
         </VideoWrapper>
         <WebcamWrapper>
           <Webcam
+            mirrored={true}
             ref={webcamRef}
             style={{
               width: videoWidth,
