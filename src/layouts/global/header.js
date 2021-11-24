@@ -30,6 +30,7 @@ export default function GlobalHeader() {
     removeCookie("name");
     removeCookie("id");
     removeCookie("isTeacher");
+    removeCookie("teacherAirtableId");
     router.push("/");
   };
 
