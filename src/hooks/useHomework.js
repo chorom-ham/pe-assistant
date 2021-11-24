@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 
 import { getCookie } from "src/utils/cookie";
@@ -6,6 +7,9 @@ import { base } from "./api";
 export default function useHomework() {
   const queryClient = useQueryClient();
   const key = "homework";
+
+  const router = useRouter();
+  const { id } = router.query;
 
   const getHomeworkList = () =>
     base()
@@ -20,8 +24,35 @@ export default function useHomework() {
     enabled: !!getCookie("teacher") || !!getCookie("isTeacher"),
   });
 
+  const getHomeworkItem = () =>
+    base()
+      .get(`/homework?filterByFormula={id}='${id}'`)
+      .then((res) => res.data.records);
+
+  const homeworkItemQuery = useQuery([key, id], getHomeworkItem, {
+    enabled: !!id,
+  });
+
+  const refresh = () => {
+    queryClient.invalidateQueries(key);
+  };
+
   const createMutation = useMutation(
-    (homeworkList) => base().post(`/homework`, homeworkList),
+    (newHomework) => base().post(`/homework`, newHomework),
+    {
+      onSuccess: () => {
+        refresh();
+      },
+    }
+  );
+
+  const updateHomework = useMutation(
+    (homework) =>
+      base().patch(`/homework`, JSON.stringify(homework), {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }),
     {
       onSuccess: () => {
         refresh();
@@ -30,10 +61,12 @@ export default function useHomework() {
   );
 
   return {
-    isLoading: homeworkListQuery.isLoading,
-    isError: homeworkListQuery.isError,
+    isLoading: homeworkListQuery.isLoading || homeworkItemQuery.isLoading,
+    isError: homeworkListQuery.isError || homeworkItemQuery.isError,
     data: homeworkListQuery.isSuccess ? homeworkListQuery.data : null,
     addNewHomework: createMutation.mutate,
     isMutationError: createMutation.isError,
+    homeworkItem: homeworkItemQuery.isSuccess ? homeworkItemQuery.data : null,
+    updateHomework: updateHomework.mutate,
   };
 }

@@ -3,17 +3,73 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import * as posenet from "@tensorflow-models/posenet";
 import Webcam from "react-webcam";
-import { Text, Button, useToast, Image } from "@chakra-ui/react";
+import { Heading, Text, Button, useToast, Image } from "@chakra-ui/react";
 
 import { EXERCISES } from "src/constants/exercises";
 import { drawKeypoints, drawSkeleton } from "src/utils/draw";
 import estimatePose from "src/utils/estimate-pose";
+import useHomework from "../hooks/useHomework";
+import { getCookie } from "src/utils/cookie";
 
 export default function ExerciseScreen() {
   const toast = useToast();
   const router = useRouter();
 
+  const { isLoading, isError, homeworkItem, updateHomework } = useHomework();
+
   const submitToTeacher = () => {
+    if (isLoading) return;
+    if (
+      homeworkItem[0].fields.completed &&
+      homeworkItem[0].fields.completed !== ""
+    ) {
+      const updatedHomework = {
+        records: [
+          {
+            id: homeworkItem[0].id,
+            fields: {
+              title: homeworkItem[0].fields.title,
+              exercise: homeworkItem[0].fields.exercise,
+              deadline: homeworkItem[0].fields.deadline,
+              description: homeworkItem[0].fields.description,
+              image: [
+                {
+                  id: homeworkItem[0].fields.image[0].id,
+                },
+              ],
+              teacher: homeworkItem[0].fields.teacher,
+              completed:
+                homeworkItem[0].fields.completed + "," + getCookie("id"),
+            },
+          },
+        ],
+      };
+      console.log(updatedHomework);
+      updateHomework(updatedHomework);
+    } else {
+      const updatedHomework = {
+        records: [
+          {
+            id: homeworkItem[0].id,
+            fields: {
+              title: homeworkItem[0].fields.title,
+              exercise: homeworkItem[0].fields.exercise,
+              deadline: homeworkItem[0].fields.deadline,
+              description: homeworkItem[0].fields.description,
+              image: [
+                {
+                  id: homeworkItem[0].fields.image[0].id,
+                },
+              ],
+              teacher: homeworkItem[0].fields.teacher,
+              completed: getCookie("id"),
+            },
+          },
+        ],
+      };
+      console.log(updatedHomework);
+      updateHomework(updatedHomework);
+    }
     toast({
       title: "제출 완료",
       status: "success",
@@ -24,7 +80,7 @@ export default function ExerciseScreen() {
   };
 
   // estimatePose 인자로 EXERCISE 배열 id.
-  const id = 2;
+  const id = 4;
 
   const [count, step, checkPoses] = estimatePose(id);
   const checkPose = useCallback((pose) => checkPoses(pose), [checkPoses]);
@@ -75,6 +131,14 @@ export default function ExerciseScreen() {
       detectWebcamFeed(posenetModel);
     }, 1000);
   };
+
+  if (isLoading) {
+    return <Heading>Loading...</Heading>;
+  }
+
+  if (!isLoading && (isError || !homeworkItem)) {
+    return <Heading>Error!</Heading>;
+  }
 
   runPosenet();
 
