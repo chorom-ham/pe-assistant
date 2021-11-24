@@ -1,4 +1,4 @@
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useEffect } from "react";
 import styled from "styled-components";
 import * as posenet from "@tensorflow-models/posenet";
 import Webcam from "react-webcam";
@@ -8,8 +8,12 @@ import { EXERCISES } from "src/constants/exercises";
 import { drawKeypoints, drawSkeleton } from "src/utils/draw";
 import estimatePose from "src/utils/estimate-pose";
 
-export default function ExerciseScreen({ id }) {
+export default function ExerciseScreen({ id, setNowCount }) {
   const [count, step, checkPoses] = estimatePose(id); // estimatePose 인자로 EXERCISE 배열 id.
+
+  useEffect(() => {
+    setNowCount(count);
+  }, [count, setNowCount]);
 
   const checkPose = useCallback((pose) => checkPoses(pose), [checkPoses]);
 

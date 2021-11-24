@@ -6,6 +6,7 @@ export const EXERCISES = [
     description: ["왼쪽 팔을 오른쪽으로 곧게 펴고, 오른팔로 당겨줍니다."],
     image: "/assets/stretchings/left-shoulder-stretching.png",
     pose: "LeftShoulderStretching",
+    shouldDoCount: 3,
   },
   {
     id: 1,
@@ -14,6 +15,7 @@ export const EXERCISES = [
     description: ["오른쪽 팔을 왼쪽으로 곧게 펴고, 왼팔로 당겨줍니다."],
     image: "/assets/stretchings/right-shoudler-stretching.png",
     pose: "RightShoulderStretching",
+    shouldDoCount: 3,
   },
   {
     id: 2,
@@ -22,6 +24,7 @@ export const EXERCISES = [
     description: ["오른손은 허리에 두고, 왼손을 머리 위로 넘깁니다."],
     image: "/assets/stretchings/left-waist-stretching.png",
     pose: "LeftWaistStretching",
+    shouldDoCount: 3,
   },
   {
     id: 3,
@@ -30,6 +33,7 @@ export const EXERCISES = [
     description: ["왼손은 허리에 두고, 오른손을 머리 위로 넘깁니다."],
     image: "/assets/stretchings/right-waist-stretching.png",
     pose: "RightWaistStretching",
+    shouldDoCount: 3,
   },
   {
     id: 4,
@@ -38,6 +42,7 @@ export const EXERCISES = [
     description: ["양 다리를 곧게 펴고 서서, 허리를 바닥으로 숙여줍니다."],
     image: "/assets/stretchings/leg-stretching.png",
     pose: "LegStretching",
+    shouldDoCount: 3,
   },
   {
     id: 5,
@@ -50,6 +55,7 @@ export const EXERCISES = [
     ],
     image: "/assets/exercises/push-up.png",
     pose: "PushUp",
+    shouldDoCount: 3,
   },
   {
     id: 6,
@@ -62,6 +68,7 @@ export const EXERCISES = [
     ],
     image: "/assets/exercises/dumbbell-upper.png",
     pose: "DumbbellUpper",
+    shouldDoCount: 3,
   },
   {
     id: 7,
@@ -73,6 +80,7 @@ export const EXERCISES = [
     ],
     image: "/assets/exercises/band-upper.png",
     pose: "BandUpper",
+    shouldDoCount: 3,
   },
   {
     id: 8,
@@ -84,5 +92,6 @@ export const EXERCISES = [
     ],
     image: "/assets/stretchings/shoulder-stretching-dynamic.png",
     pose: "ShoulderStretchingDynamic",
+    shouldDoCount: 3,
   },
 ];

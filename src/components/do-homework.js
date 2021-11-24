@@ -1,12 +1,18 @@
+import { useState } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Heading, Text, Button, useToast } from "@chakra-ui/react";
 
+import COLORS from "src/constants/colors";
+import { EXERCISES } from "../constants/exercises";
 import ExerciseScreen from "./exercise-screen";
 import useHomework from "../hooks/useHomework";
 import { getCookie } from "src/utils/cookie";
 
 export default function DoHomework() {
+  const [exercise, setExercise] = useState(0); // current exercise 단계 (index)
+  const [nowCount, setNowCount] = useState(null); // 현재 횟수
+
   const toast = useToast();
   const router = useRouter();
 
@@ -83,21 +89,52 @@ export default function DoHomework() {
   return (
     <Wrapper>
       <TopWrapper>
-        {/* <ScoreWrapper>
-          <Text color="white" fontWeight="bold" fontSize="xl">
-            현재 step: {step}
-          </Text>
-        </ScoreWrapper>
-        <ScoreWrapper>
-          <Text color="white" fontWeight="bold" fontSize="xl">
-            동작 수행 횟수: {count}
-          </Text>
-        </ScoreWrapper> */}
-        <Button size="lg" colorScheme="blue" onClick={submitToTeacher}>
-          선생님께 제출
-        </Button>
+        <Row>
+          <ScoreWrapper>
+            <Text color="white" fontWeight="bold" fontSize="xl">
+              동작 수행 횟수: {nowCount} / {EXERCISES[exercise].shouldDoCount}
+            </Text>
+          </ScoreWrapper>
+          <Button
+            disabled={nowCount < EXERCISES[exercise].shouldDoCount}
+            size="lg"
+            colorScheme="blue"
+            onClick={() => {
+              if (
+                exercise ===
+                homeworkItem[0].fields.exercise.split(",").length - 1
+              ) {
+                submitToTeacher();
+              } else {
+                setExercise(exercise + 1);
+                setNowCount(0);
+              }
+            }}
+          >
+            {exercise === homeworkItem[0].fields.exercise.split(",").length - 1
+              ? "제출하기"
+              : "다음 동작"}
+          </Button>
+        </Row>
+        <ExerciseListWrapper>
+          <ItemContainer>
+            {homeworkItem[0].fields.exercise.split(",").map((id, index) => (
+              <Text
+                key={id + index}
+                fontSize="lg"
+                fontColor={index === exercise && "blue.500"}
+                fontWeight={index === exercise && "bold"}
+              >
+                {EXERCISES[id]?.title} &gt;&nbsp;
+              </Text>
+            ))}
+          </ItemContainer>
+        </ExerciseListWrapper>
       </TopWrapper>
-      <ExerciseScreen id={2} />
+      <ExerciseScreen
+        id={homeworkItem[0].fields.exercise.split(",")[exercise]}
+        setNowCount={setNowCount}
+      />
     </Wrapper>
   );
 }
@@ -113,8 +150,7 @@ const Wrapper = styled.div`
 const TopWrapper = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  flex-direction: column;
   margin-bottom: 2rem;
 `;
 
@@ -136,4 +172,22 @@ const ScoreWrapper = styled.div`
     #0072ff,
     #00c6ff
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+`;
+
+const ExerciseListWrapper = styled.div`
+  width: 100%;
+  padding: 1.5rem 2rem;
+  border-radius: 1rem;
+  border: 1px solid ${COLORS.blue[500]};
+  margin: 1rem 0;
+`;
+
+const ItemContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const Row = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
